@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <!-- Bootstrap CSS  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{url_for('static', path='images/favicon/favicon-96x96.png')}}"
+    sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="{{url_for('static', path='images/favicon/favicon.svg')}}" />
+  <link rel="shortcut icon" href="{{url_for('static', path='images/favicon/favicon.ico')}}" />
+  <link rel="apple-touch-icon" sizes="180x180"
+    href="{{url_for('static', path='images/favicon/apple-touch-icon.png')}}" />
+  <link rel="manifest" href="{{url_for('static', path='images/favicon/site.webmanifest')}}" />
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Icons for the arrow / check -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="{{url_for('static', path='css/index.css')}}">
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="container">
+    <header class="site-header navbar navbar-expand-lg py-3 mb-4">
+      <a href="/" class="site-logo-link d-flex align-items-center text-dark text-decoration-none me-auto">
+        <img src="{{ url_for('static', path='images/redbased-logo.png') }}" class="site-logo bi me-2" role="img"
+          aria-label="RedBased Agric Farms logo">
+        <use xlink:href="#bootstrap"></use>
+      </a>
+
+      <button class="navbar-toggler site-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse flex-grow-0" id="siteNav">
+        <ul class="site-nav nav flex-column flex-lg-row mb-3 mb-lg-0">
+          <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">Shop</a></li>
+        </ul>
+
+        <div class="site-actions d-flex flex-column flex-lg-row gap-2 ms-lg-3">
+          <button type="button" class="btn btn-outline-success">Sign in</button>
+          <button type="button" class="btn btn-success">Shop Now</button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="row align-items-center g-5">
+
+        <!-- Left: copy -->
+        <div class="col-lg-6">
+          <span class="eyebrow-badge">
+            <span class="dot"></span>
+            100% NATURAL · FARM DIRECT
+          </span>
+
+          <h1 class="hero-headline">
+            Fresh Palm Oil<br>
+            <span class="accent-line">Delivered Straight</span><br>
+            From Our Farm
+          </h1>
+
+          <p class="hero-sub">
+            Pure, unrefined, cold-pressed. RedBased Agric Farm brings you premium
+            palm oil and farm produce — harvested fresh, shipped fast, with no middlemen.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#shop" class="btn btn-shop">
+              Shop Now <i class="bi bi-arrow-right"></i>
+            </a>
+            <a href="#create-account" class="btn btn-create">
+              Create Account
+            </a>
+          </div>
+
+          <hr class="hero-divider">
+
+          <div class="row">
+            <div class="col-4">
+              <div class="stat-value">5,000+</div>
+              <div class="stat-label">Happy Customers</div>
+            </div>
+            <div class="col-4">
+              <div class="stat-value">36</div>
+              <div class="stat-label">States Covered</div>
+            </div>
+            <div class="col-4">
+              <div class="stat-value">100%</div>
+              <div class="stat-label">Farm Direct</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: image -->
+        <div class="col-lg-6">
+          <div class="hero-media">
+            <div class="hero-media-frame">
+              <img src="{{url_for('static', path='images/hero-img.png')}}" alt="Red Gold Xomi Palm Oil promotional banner">
+            </div>
+
+            <div class="rating-badge">
+              <div class="stars">4.9★</div>
+              <div class="reviews">218 reviews</div>
+            </div>
+
+            <div class="organic-card">
+              <div class="icon-wrap"><i class="bi bi-patch-check-fill"></i></div>
+              <div>
+                <div class="title">Certified Organic</div>
+                <div class="subtitle">No preservatives · No additives</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="features">
+  <div class="hero-inner">
+    <div class="row g-4">
+ 
+      <div class="col-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon--produce">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 3C11 3 4 10 4 19c0 .6.4 1 1 1 9 0 16-7 16-16 0-.6-.4-1-1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M5 19c4-2 8-6 10-10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="feature-title">Fresh Produce</div>
+          <p class="feature-text">Harvested at peak ripeness and dispatched within 24 hours</p>
+        </div>
+      </div>
+ 
+      <div class="col-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon--pricing">
+            <i class="bi bi-tag-fill"></i>
+          </div>
+          <div class="feature-title">Farm Direct Pricing</div>
+          <p class="feature-text">Zero middlemen. You pay farm-gate prices</p>
+        </div>
+      </div>
+ 
+      <div class="col-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon--delivery">
+            <i class="bi bi-truck"></i>
+          </div>
+          <div class="feature-title">Nationwide Delivery</div>
+          <p class="feature-text">We ship to all 36 states in Nigeria with reliable tracking</p>
+        </div>
+      </div>
+ 
+      <div class="col-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon--payments">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <div class="feature-title">Secure Payments</div>
+          <p class="feature-text">SSL-encrypted checkout with Paystack, Flutterwave &amp; bank transfer</p>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+
+
+
+<section class="products">
+  <div class="products-inner">
+
+    <div class="d-flex justify-content-between align-items-end products-header mb-4">
+      <div>
+        <div class="products-eyebrow">OUR SELECTION</div>
+        <h2 class="products-heading">Featured Products</h2>
+      </div>
+      <a href="#all-products" class="products-view-all">
+        View All <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Card 1 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <div class="product-media product-media--mint">
+            <span class="product-tag">Best Seller</span>
+            <button class="product-wishlist" aria-label="Add to wishlist">
+              <i class="bi bi-heart"></i>
+            </button>
+            <img src="{{url_for('static', path='images/can.png')}}" alt="Premium Red Palm Oil (1L)">
+          </div>
+          <div class="product-body">
+            <div class="product-category">PALM OIL</div>
+            <div class="product-name">Premium Red Palm Oil (1L)</div>
+            <div class="product-rating">
+              <span class="stars">★★★★★</span>
+              <span class="count">(218)</span>
+            </div>
+            <span class="product-stock"><span class="dot"></span>In Stock</span>
+            <div class="product-footer">
+              <span class="product-price">₦4,500</span>
+              <button class="product-add"><i class="bi bi-cart3"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <div class="product-media product-media--lavender">
+            <button class="product-wishlist" aria-label="Add to wishlist">
+              <i class="bi bi-heart"></i>
+            </button>
+            <img src="{{url_for('static', path='images/can.png')}}" alt="Premium Red Palm Oil (1L)">
+          </div>
+          <div class="product-body">
+            <div class="product-category">PALM OIL</div>
+            <div class="product-name">Premium Red Palm Oil (1L)</div>
+            <div class="product-rating">
+              <span class="stars">★★★★★</span>
+              <span class="count">(218)</span>
+            </div>
+            <span class="product-stock"><span class="dot"></span>In Stock</span>
+            <div class="product-footer">
+              <span class="product-price">₦4,500</span>
+              <button class="product-add"><i class="bi bi-cart3"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <div class="product-media product-media--blush">
+            <span class="product-tag">New</span>
+            <button class="product-wishlist" aria-label="Add to wishlist">
+              <i class="bi bi-heart"></i>
+            </button>
+            <img src="{{url_for('static', path='images/can.png')}}" alt="Premium Red Palm Oil (1L)">
+          </div>
+          <div class="product-body">
+            <div class="product-category">PALM OIL</div>
+            <div class="product-name">Premium Red Palm Oil (1L)</div>
+            <div class="product-rating">
+              <span class="stars">★★★★★</span>
+              <span class="count">(218)</span>
+            </div>
+            <span class="product-stock"><span class="dot"></span>In Stock</span>
+            <div class="product-footer">
+              <span class="product-price">₦4,500</span>
+              <button class="product-add"><i class="bi bi-cart3"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <div class="product-media product-media--sand">
+            <button class="product-wishlist" aria-label="Add to wishlist">
+              <i class="bi bi-heart"></i>
+            </button>
+            <img src="{{url_for('static', path='images/can.png')}}" alt="Premium Red Palm Oil (1L)">
+          </div>
+          <div class="product-body">
+            <div class="product-category">PALM OIL</div>
+            <div class="product-name">Premium Red Palm Oil (1L)</div>
+            <div class="product-rating">
+              <span class="stars">★★★★★</span>
+              <span class="count">(218)</span>
+            </div>
+            <span class="product-stock"><span class="dot"></span>In Stock</span>
+            <div class="product-footer">
+              <span class="product-price">₦4,500</span>
+              <button class="product-add"><i class="bi bi-cart3"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <div class="product-media product-media--sage">
+            <span class="product-tag">Popular</span>
+            <button class="product-wishlist" aria-label="Add to wishlist">
+              <i class="bi bi-heart"></i>
+            </button>
+            <img src="{{url_for('static', path='images/can.png')}}" alt="Premium Red Palm Oil (1L)">
+          </div>
+          <div class="product-body">
+            <div class="product-category">PALM OIL</div>
+            <div class="product-name">Premium Red Palm Oil (1L)</div>
+            <div class="product-rating">
+              <span class="stars">★★★★★</span>
+              <span class="count">(218)</span>
+            </div>
+            <span class="product-stock"><span class="dot"></span>In Stock</span>
+            <div class="product-footer">
+              <span class="product-price">₦4,500</span>
+              <button class="product-add"><i class="bi bi-cart3"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <div class="product-media product-media--tan">
+            <button class="product-wishlist" aria-label="Add to wishlist">
+              <i class="bi bi-heart"></i>
+            </button>
+            <img src="{{url_for('static', path='images/can.png')}}" alt="Premium Red Palm Oil (1L)">
+          </div>
+          <div class="product-body">
+            <div class="product-category">PALM OIL</div>
+            <div class="product-name">Premium Red Palm Oil (1L)</div>
+            <div class="product-rating">
+              <span class="stars">★★★★★</span>
+              <span class="count">(218)</span>
+            </div>
+            <span class="product-stock"><span class="dot"></span>In Stock</span>
+            <div class="product-footer">
+              <span class="product-price">₦4,500</span>
+              <button class="product-add"><i class="bi bi-cart3"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Best Sellers Carousel  -->
+
+<section class="bestsellers">
+  <div class="bestsellers-inner">
+
+    <div class="d-flex justify-content-between align-items-end bestsellers-header mb-4">
+      <div>
+        <div class="bestsellers-eyebrow">MOST LOVED</div>
+        <h2 class="bestsellers-heading">Best Sellers</h2>
+      </div>
+      <div class="bestsellers-arrows">
+        <button type="button" class="bs-arrow bs-arrow--prev" id="bsPrev" aria-label="Previous">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <button type="button" class="bs-arrow bs-arrow--next" id="bsNext" aria-label="Next">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="bs-track" id="bsTrack">
+
+      <!-- Card 1 -->
+      <article class="bs-card">
+        <div class="bs-card-media">
+          <img src="{{url_for('static', path='images/redoil-5L-2.png')}}" alt="Devon King's Pure Vegetable Oil 25L" class="img-fluid">
+        </div>
+        <div class="bs-card-body">
+          <div class="bs-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <div class="bs-name">Premium Red Palm Oil (5L)</div>
+          <div class="bs-price">₦18,500</div>
+          <button class="bs-add"><i class="bi bi-cart3"></i> Add to Cart</button>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="bs-card">
+        <div class="bs-card-media">
+          <img src="{{url_for('static', path='images/redoil-5L.png')}}" alt="Two bottles of Red Palm Oil" class="img-fluid">
+        </div>
+        <div class="bs-card-body">
+          <div class="bs-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <div class="bs-name">Premium Red Palm Oil (5L)</div>
+          <div class="bs-price">₦18,500</div>
+          <button class="bs-add"><i class="bi bi-cart3"></i> Add to Cart</button>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="bs-card">
+        <div class="bs-card-media">
+          <img src="./images/palm-oil-jug.png" alt="Premium Red Palm Oil jug">
+        </div>
+        <div class="bs-card-body">
+          <div class="bs-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <div class="bs-name">Premium Red Palm Oil (5L)</div>
+          <div class="bs-price">₦18,500</div>
+          <button class="bs-add"><i class="bi bi-cart3"></i> Add to Cart</button>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="bs-card">
+        <div class="bs-card-media">
+          <img src="./images/palm-oil-jug.png" alt="Premium Red Palm Oil jug">
+        </div>
+        <div class="bs-card-body">
+          <div class="bs-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <div class="bs-name">Premium Red Palm Oil (5L)</div>
+          <div class="bs-price">₦18,500</div>
+          <button class="bs-add"><i class="bi bi-cart3"></i> Add to Cart</button>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="bs-dots" id="bsDots"></div>
+
+  </div>
+</section>
+
+
+<!-- How it works section  -->
+
+<section class="howitworks">
+  <div class="howitworks-inner">
+
+    <div class="text-center howitworks-header">
+      <div class="howitworks-eyebrow">SIMPLE PROCESS</div>
+      <h2 class="howitworks-heading">How It Works</h2>
+    </div>
+
+    <div class="row g-5">
+
+      <div class="col-md-4">
+        <div class="hiw-step">
+          <span class="hiw-number">1</span>
+          <div class="hiw-icon">
+            <i class="bi bi-stack"></i>
+          </div>
+          <div class="hiw-title">Browse &amp; Select</div>
+          <p class="hiw-text">Explore our curated catalog of farm-fresh produce</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="hiw-step">
+          <span class="hiw-number">2</span>
+          <div class="hiw-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <div class="hiw-title">Secure Checkout</div>
+          <p class="hiw-text">Pay safely with Paystack, bank transfer, or USSD</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="hiw-step">
+          <span class="hiw-number">3</span>
+          <div class="hiw-icon">
+            <i class="bi bi-truck"></i>
+          </div>
+          <div class="hiw-title">Fast Delivery</div>
+          <p class="hiw-text">Your order is packed fresh and dispatched within 24 hours</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Testimonies  -->
+
+<section class="testimonials">
+  <div class="testimonials-inner">
+ 
+    <div class="text-center testimonials-header">
+      <div class="testimonials-eyebrow">CUSTOMER STORIES</div>
+      <h2 class="testimonials-heading">What Our Customers Say</h2>
+    </div>
+ 
+    <div class="row g-4">
+ 
+      <!-- Testimonial 1 -->
+      <div class="col-md-6">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+          </div>
+          <p class="testimonial-quote">&ldquo;RedBased Farm changed how I cook. The palm oil is so pure, you can taste the difference from the first drop.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AO</div>
+            <div>
+              <div class="testimonial-name">Adaeze Okonkwo</div>
+              <div class="testimonial-location"><i class="bi bi-geo-alt"></i> Lagos, Nigeria</div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Testimonial 2 -->
+      <div class="col-md-6">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+          </div>
+          <p class="testimonial-quote">&ldquo;I've ordered four times now. Consistently excellent quality. My family specifically requests this palm oil.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SG</div>
+            <div>
+              <div class="testimonial-name">Shane George</div>
+              <div class="testimonial-location"><i class="bi bi-geo-alt"></i> Abuja, Nigeria</div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Testimonial 3 -->
+      <div class="col-md-6">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+          </div>
+          <p class="testimonial-quote">&ldquo;The farm-direct pricing is unbeatable. I run a small restaurant and sourcing from RedBased has helped improve my food quality.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">NA</div>
+            <div>
+              <div class="testimonial-name">Ngozi Amadi</div>
+              <div class="testimonial-location"><i class="bi bi-geo-alt"></i> Port Harcourt, Nigeria</div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Testimonial 4 -->
+      <div class="col-md-6">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+          </div>
+          <p class="testimonial-quote">&ldquo;RedBased Farm changed how I cook. The palm oil is so pure, you can taste the difference from the first drop.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">BM</div>
+            <div>
+              <div class="testimonial-name">Bello Musa</div>
+              <div class="testimonial-location"><i class="bi bi-geo-alt"></i> Kano, Nigeria</div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Footer  -->
+
+<footer class="site-footer">
+  <div class="footer-inner">
+ 
+    <!-- Newsletter banner -->
+    <div class="newsletter-banner">
+      <div class="newsletter-copy">
+        <div class="newsletter-title"><i class="bi bi-envelope-fill"></i> Get 10% Off Your first Order</div>
+        <p class="newsletter-sub">Farm updates, harvest alerts, exclusive deals- no spam</p>
+      </div>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" class="newsletter-input" placeholder="your@email.com" aria-label="Email address" required>
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+ 
+    <!-- Link columns -->
+    <div class="footer-columns">
+ 
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="{{url_for('static', path='images/redbased-logo-white.png')}}" alt="RedBased Logo" class="img-fluid">
+        </div>
+        <p class="footer-tagline">Premium palm oil and farm produce delivered straight from our sustainable farm to your doorstep</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="footer-social-icon" aria-label="X (Twitter)"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="footer-social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        </div>
+      </div>
+ 
+      <div class="footer-col">
+        <div class="footer-col-title">PRODUCTS</div>
+        <ul class="footer-links">
+          <li><a href="#">Palm Oil</a></li>
+          <li><a href="#">Cooking Oils</a></li>
+          <li><a href="#">Fresh Produce</a></li>
+          <li><a href="#">Flour &amp; Grains</a></li>
+          <li><a href="#">Farm Bundles</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-col">
+        <div class="footer-col-title">COMPANY</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Farm</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-col">
+        <div class="footer-col-title">SUPPORT</div>
+        <ul class="footer-links">
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+ 
+    </div>
+ 
+    <hr class="footer-divider">
+ 
+    <!-- Contact row -->
+    <div class="footer-contact">
+      <a href="tel:+2348000000000" class="footer-contact-item">
+        <i class="bi bi-telephone-fill"></i> +234 800 000 0000
+      </a>
+      <a href="mailto:hello@redbasedagric.com" class="footer-contact-item">
+        <i class="bi bi-envelope-fill"></i> hello@redbasedagric.com
+      </a>
+      <span class="footer-contact-item">
+        <i class="bi bi-geo-alt-fill"></i> Benue State, Nigeria
+      </span>
+    </div>
+ 
+    <hr class="footer-divider">
+ 
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <div class="footer-copyright">&copy; 2026 RedBased Agric Farm. All rights reserved.</div>
+      <div class="footer-watermark">
+        <img src="{{url_for('static', path='images/redbased-logo.png')}}" alt="RedBased Logo" class="img-fluid">
+
+      </div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+ 
+  </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+    <script src="{{url_for('static', path='javascript/index.js')}}"></script>
+</body>
+
+</html>
