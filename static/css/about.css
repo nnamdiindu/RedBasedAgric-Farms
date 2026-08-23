@@ -1,0 +1,190 @@
+/* ===========================
+   About Page — relies on tokens
+   and shared styles from index.css
+   (must be linked before this file)
+   =========================== */
+
+/* -------- About Hero -------- */
+.about-hero {
+  background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-700) 100%);
+  padding: 5rem 0;
+}
+
+.about-hero-content {
+  max-width: 46rem;
+}
+
+.about-hero-eyebrow {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.9rem;
+}
+
+.about-hero-heading {
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 4vw, 2.85rem);
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+.about-hero-heading .accent-line {
+  color: var(--color-secondary);
+}
+
+.about-hero-sub {
+  color: var(--color-on-primary-muted);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+@media (max-width: 575.98px) {
+  .about-hero {
+    padding: 3.5rem 0;
+  }
+  .about-hero-sub {
+    font-size: 0.92rem;
+  }
+}
+
+/* -------- Why We Exist -------- */
+.why-exist {
+  background: var(--color-background);
+  padding: 5rem 0;
+}
+
+.why-eyebrow {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.why-heading {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--color-primary);
+  margin-bottom: 1.25rem;
+}
+
+.why-text {
+  color: #5b5b5b;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.why-stats {
+  margin-top: 1.75rem;
+}
+
+.why-stat-box {
+  background: #eef0ee;
+  border-radius: 0.85rem;
+  padding: 1.1rem 0.75rem;
+  text-align: center;
+}
+
+.why-stat-value {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--color-primary);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.why-stat-label {
+  font-size: 0.78rem;
+  color: #6b6b6b;
+}
+
+/* -------- Mission / Vision / Promise / Community cards -------- */
+.about-card {
+  border-radius: 1rem;
+  border: 1px solid transparent;
+  padding: 1.5rem 1.4rem;
+  height: 100%;
+}
+
+.about-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.about-card-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.about-card-text {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #5b5b5b;
+  margin: 0;
+}
+
+.about-card--mission {
+  background: #FBF3DF;
+  border-color: rgba(212, 160, 23, 0.25);
+}
+.about-card--mission .about-card-icon {
+  color: var(--color-secondary);
+}
+
+.about-card--vision {
+  background: #E8F5EC;
+  border-color: rgba(82, 183, 136, 0.3);
+}
+.about-card--vision .about-card-icon {
+  color: var(--color-success);
+}
+
+.about-card--promise {
+  background: #F7ECFA;
+  border-color: rgba(147, 51, 190, 0.2);
+}
+.about-card--promise .about-card-icon {
+  color: #8E3FB0;
+}
+
+.about-card--community {
+  background: #ECEDFB;
+  border-color: rgba(79, 70, 229, 0.22);
+}
+.about-card--community .about-card-icon {
+  color: #4F46E5;
+}
+
+@media (max-width: 575.98px) {
+  .why-exist {
+    padding: 3.5rem 0;
+  }
+  .why-stat-box {
+    padding: 0.85rem 0.5rem;
+  }
+  .why-stat-value {
+    font-size: 1.05rem;
+  }
+  .why-stat-label {
+    font-size: 0.68rem;
+  }
+  .about-card {
+    padding: 1.25rem;
+  }
+}
