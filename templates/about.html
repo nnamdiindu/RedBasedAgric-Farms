@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+ {% block styles %}
+  <link rel="stylesheet" href="{{url_for('static', path='css/about.css')}}">
+
+  {% endblock %}
+{% block content %}
+
+  <!-- About Hero -->
+  <section class="about-hero">
+    <div class="hero-inner">
+      <div class="about-hero-content text-center mx-auto">
+        <div class="about-hero-eyebrow">OUR STORY</div>
+        <h1 class="about-hero-heading">
+          Growing Nigeria's<br>
+          <span class="accent-line">Finest Farm Produce</span>
+        </h1>
+        <p class="about-hero-sub">
+          From a single plot of land in Benue State, RedBased Agric Farm has grown into
+          one of Nigeria's most trusted farm-direct brands — built on soil, sweat, and an
+          uncompromising commitment to quality
+        </p>
+      </div>
+    </div>
+  </section>
+ 
+
+
+
+  <!-- Why We Exist -->
+  <section class="why-exist">
+    <div class="hero-inner">
+      <div class="row g-5 align-items-start">
+ 
+        <!-- Left: copy + stats -->
+        <div class="col-lg-6">
+          <div class="why-eyebrow">WHY WE EXIST</div>
+          <h2 class="why-heading">Farm-direct quality has always been possible</h2>
+ 
+          <p class="why-text">
+            Nigerian households deserve to know where their food comes from. For decades,
+            palm oil passed through so many hands between farm and kitchen that quality,
+            freshness, and transparency were lost along the way.
+          </p>
+          <p class="why-text">
+            We started RedBased Agric to change that. By selling directly to consumers,
+            no middlemen, no warehousing delays, we guarantee freshness, traceability,
+            and fair pricing for everyone involved
+          </p>
+ 
+          <div class="row g-3 why-stats">
+            <div class="col-4">
+              <div class="why-stat-box">
+                <div class="why-stat-value">2019</div>
+                <div class="why-stat-label">Founded</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="why-stat-box">
+                <div class="why-stat-value">45ha</div>
+                <div class="why-stat-label">Farm Size</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="why-stat-box">
+                <div class="why-stat-value">5k+</div>
+                <div class="why-stat-label">Customers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Right: mission/vision/promise/community cards -->
+        <div class="col-lg-6">
+          <div class="row g-3">
+ 
+            <div class="col-12 col-sm-6">
+              <div class="about-card about-card--mission">
+                <div class="about-card-icon"><i class="bi bi-bullseye"></i></div>
+                <div class="about-card-title">Our Mission</div>
+                <p class="about-card-text">To make pure, traceable, farm-fresh produce accessible to every Nigerian household at prices that reflect direct farm-to-consumer sourcing</p>
+              </div>
+            </div>
+ 
+            <div class="col-12 col-sm-6">
+              <div class="about-card about-card--vision">
+                <div class="about-card-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 3C11 3 4 10 4 19c0 .6.4 1 1 1 9 0 16-7 16-16 0-.6-.4-1-1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M5 19c4-2 8-6 10-10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="about-card-title">Our Vision</div>
+                <p class="about-card-text">A Nigeria where consumers know their farmer's name where food supply chains are short, transparent, and fair</p>
+              </div>
+            </div>
+ 
+            <div class="col-12 col-sm-6">
+              <div class="about-card about-card--promise">
+                <div class="about-card-icon"><i class="bi bi-shield-check"></i></div>
+                <div class="about-card-title">Our Promise</div>
+                <p class="about-card-text">No preservatives. No adulteration. No shortcuts. Every bottle carries our name, and that means everything to us</p>
+              </div>
+            </div>
+ 
+            <div class="col-12 col-sm-6">
+              <div class="about-card about-card--community">
+                <div class="about-card-icon"><i class="bi bi-people-fill"></i></div>
+                <div class="about-card-title">Our Community</div>
+                <p class="about-card-text">We support 120+ smallholder farmers with training, equipment access, and market linkages growing together</p>
+              </div>
+            </div>
+ 
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </section>
+ 
+
+{% endblock %}
