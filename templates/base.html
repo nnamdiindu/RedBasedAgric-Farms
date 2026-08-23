@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <!-- Bootstrap CSS  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{url_for('static', path='images/favicon/favicon-96x96.png')}}"
+    sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="{{url_for('static', path='images/favicon/favicon.svg')}}" />
+  <link rel="shortcut icon" href="{{url_for('static', path='images/favicon/favicon.ico')}}" />
+  <link rel="apple-touch-icon" sizes="180x180"
+    href="{{url_for('static', path='images/favicon/apple-touch-icon.png')}}" />
+  <link rel="manifest" href="{{url_for('static', path='images/favicon/site.webmanifest')}}" />
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Icons for the arrow / check -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{{url_for('static', path='css/index.css')}}">
+
+    {% block styles %}
+  {% endblock %}
+</head>
+
+
+<body>
+  <!-- Header -->
+  <div class="container">
+    <header class="site-header navbar navbar-expand-lg py-3 mb-4">
+      <a href="/" class="site-logo-link d-flex align-items-center text-dark text-decoration-none me-auto">
+        <img src="{{ url_for('static', path='images/redbased-logo.png') }}" class="site-logo bi me-2" role="img"
+          aria-label="RedBased Agric Farms logo">
+        <use xlink:href="#bootstrap"></use>
+      </a>
+
+      <button class="navbar-toggler site-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse flex-grow-0" id="siteNav">
+        <ul class="site-nav nav flex-column flex-lg-row mb-3 mb-lg-0">
+          <li><a href="{{url_for('index')}}" class="nav-link px-2 link-secondary">Home</a></li>
+          <li><a href="{{url_for('about_us')}}" class="nav-link px-2 link-dark">About</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">Shop</a></li>
+        </ul>
+
+        <div class="site-actions d-flex flex-column flex-lg-row gap-2 ms-lg-3">
+          <button type="button" class="btn btn-outline-success">Sign in</button>
+          <button type="button" class="btn btn-success">Shop Now</button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+{% block content %}
+
+{% endblock %}
+
+
+
+<!-- Footer  -->
+
+<footer class="site-footer">
+  <div class="footer-inner">
+ 
+    <!-- Newsletter banner -->
+    <div class="newsletter-banner">
+      <div class="newsletter-copy">
+        <div class="newsletter-title"><i class="bi bi-envelope-fill"></i> Get 10% Off Your first Order</div>
+        <p class="newsletter-sub">Farm updates, harvest alerts, exclusive deals- no spam</p>
+      </div>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" class="newsletter-input" placeholder="your@email.com" aria-label="Email address" required>
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+ 
+    <!-- Link columns -->
+    <div class="footer-columns">
+ 
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="{{url_for('static', path='images/redbased-logo-white.png')}}" alt="RedBased Logo" class="img-fluid">
+        </div>
+        <p class="footer-tagline">Premium palm oil and farm produce delivered straight from our sustainable farm to your doorstep</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="footer-social-icon" aria-label="X (Twitter)"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="footer-social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        </div>
+      </div>
+ 
+      <div class="footer-col">
+        <div class="footer-col-title">PRODUCTS</div>
+        <ul class="footer-links">
+          <li><a href="#">Palm Oil</a></li>
+          <li><a href="#">Cooking Oils</a></li>
+          <li><a href="#">Fresh Produce</a></li>
+          <li><a href="#">Flour &amp; Grains</a></li>
+          <li><a href="#">Farm Bundles</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-col">
+        <div class="footer-col-title">COMPANY</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Farm</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-col">
+        <div class="footer-col-title">SUPPORT</div>
+        <ul class="footer-links">
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+ 
+    </div>
+ 
+    <hr class="footer-divider">
+ 
+    <!-- Contact row -->
+    <div class="footer-contact">
+      <a href="tel:+2348000000000" class="footer-contact-item">
+        <i class="bi bi-telephone-fill"></i> +234 800 000 0000
+      </a>
+      <a href="mailto:hello@redbasedagric.com" class="footer-contact-item">
+        <i class="bi bi-envelope-fill"></i> hello@redbasedagric.com
+      </a>
+      <span class="footer-contact-item">
+        <i class="bi bi-geo-alt-fill"></i> Enugu State, Nigeria
+      </span>
+    </div>
+ 
+    <hr class="footer-divider">
+ 
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <div class="footer-copyright">&copy; 2026 RedBased Agric Farm. All rights reserved.</div>
+      <div class="footer-watermark">
+        <img src="{{url_for('static', path='images/redbased-logo.png')}}" alt="RedBased Logo" class="img-fluid">
+
+      </div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+ 
+  </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+    <script src="{{url_for('static', path='javascript/index.js')}}"></script>
+</body>
+
+</html>
