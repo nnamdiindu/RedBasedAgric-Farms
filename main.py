@@ -15,3 +15,10 @@ async def index(request: Request):
         request=request,
         name="index.html"
     )
+
+@app.get("/about_us")
+async def about_us(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="about.html"
+    )  
