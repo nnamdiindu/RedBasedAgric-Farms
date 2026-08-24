@@ -188,3 +188,445 @@
     padding: 1.25rem;
   }
 }
+
+
+
+/* ===========================
+   The Farm — photo gallery
+   =========================== */
+.farm-life {
+  background: var(--color-background);
+  padding: 5rem 0;
+}
+ 
+.farm-life-eyebrow {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+ 
+.farm-life-heading {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+  color: var(--color-primary);
+  margin-bottom: 1.75rem;
+}
+ 
+.farm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+ 
+.farm-img {
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #e4e4e0;
+}
+ 
+.farm-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+ 
+.farm-img--main {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 10;
+}
+ 
+.farm-img:not(.farm-img--main) {
+  aspect-ratio: 1 / 1;
+}
+ 
+@media (min-width: 768px) {
+  .farm-grid {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem;
+    height: 440px;
+  }
+  .farm-img--main {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    aspect-ratio: auto;
+  }
+  .farm-img:not(.farm-img--main) {
+    aspect-ratio: auto;
+  }
+}
+ 
+@media (max-width: 575.98px) {
+  .farm-life {
+    padding: 3.5rem 0;
+  }
+}
+ 
+/* ===========================
+   Milestones timeline
+   =========================== */
+.milestones {
+  background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-700) 100%);
+  padding: 5rem 0;
+}
+ 
+.milestones-header {
+  margin-bottom: 3.5rem;
+}
+ 
+.milestones-eyebrow {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+ 
+.milestones-heading {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  color: #fff;
+  margin: 0;
+}
+ 
+.milestones-track {
+  position: relative;
+  max-width: 62rem;
+  margin: 0 auto;
+}
+ 
+.milestones-track::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateX(-50%);
+}
+ 
+.milestone-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 110px;
+  margin-bottom: 2.5rem;
+}
+.milestone-item:last-child {
+  margin-bottom: 0;
+}
+.milestone-item.left {
+  justify-content: flex-start;
+}
+.milestone-item.right {
+  justify-content: flex-end;
+}
+ 
+.milestone-card {
+  width: 44%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.4rem 1.6rem;
+}
+ 
+.milestone-year {
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 0.35rem;
+}
+ 
+.milestone-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.08rem;
+  margin-bottom: 0.5rem;
+}
+ 
+.milestone-text {
+  color: var(--color-on-primary-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0;
+}
+ 
+.milestone-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  box-shadow: 0 0 0 6px rgba(212, 160, 23, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.milestone-dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary-700);
+}
+ 
+@media (max-width: 767.98px) {
+  .milestones {
+    padding: 3.5rem 0;
+  }
+  .milestones-header {
+    margin-bottom: 2.5rem;
+  }
+  .milestones-track::before {
+    left: 20px;
+  }
+  .milestone-item,
+  .milestone-item.left,
+  .milestone-item.right {
+    justify-content: flex-start;
+    padding-left: 50px;
+    align-items: flex-start;
+    min-height: 0;
+  }
+  .milestone-card {
+    width: 100%;
+    padding: 1.15rem 1.3rem;
+  }
+  .milestone-dot {
+    left: 20px;
+    top: 1.4rem;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+
+/* ===========================
+   Meet the Team
+   =========================== */
+.team {
+  background: var(--color-background);
+  padding: 5rem 0;
+}
+ 
+.team-header {
+  max-width: 34rem;
+  margin: 0 auto 3rem;
+}
+ 
+.team-eyebrow {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+ 
+.team-heading {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+ 
+.team-sub {
+  color: #6b6b6b;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin: 0;
+}
+ 
+.team-member {
+  text-align: center;
+}
+ 
+.team-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 1.1rem;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.1rem;
+}
+.team-avatar--1 { background: linear-gradient(160deg, var(--color-accent) 0%, var(--color-primary) 100%); }
+.team-avatar--2 { background: linear-gradient(160deg, #E8C64A 0%, var(--color-secondary-600) 100%); }
+.team-avatar--3 { background: linear-gradient(160deg, var(--color-accent) 0%, var(--color-primary-700) 100%); }
+.team-avatar--4 { background: linear-gradient(160deg, #E8C64A 0%, #A9821B 100%); }
+ 
+.team-name {
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--color-text);
+  margin-bottom: 0.2rem;
+}
+ 
+.team-role {
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.65rem;
+}
+ 
+.team-bio {
+  color: #6b6b6b;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin: 0;
+}
+ 
+@media (max-width: 575.98px) {
+  .team {
+    padding: 3.5rem 0;
+  }
+  .team-avatar {
+    width: 68px;
+    height: 68px;
+    font-size: 1.15rem;
+    border-radius: 0.9rem;
+  }
+  .team-bio {
+    font-size: 0.8rem;
+  }
+}
+ 
+/* ===========================
+   Our Certifications
+   =========================== */
+.certifications {
+  background: var(--color-background);
+  padding: 5rem 0;
+}
+ 
+.certifications-header {
+  margin-bottom: 3rem;
+}
+ 
+.certifications-eyebrow {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+ 
+.certifications-heading {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  color: var(--color-primary);
+  margin: 0;
+}
+ 
+.cert-card {
+  background: #fff;
+  border: 1px solid rgba(34, 34, 34, 0.06);
+  border-radius: 1.1rem;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  height: 100%;
+}
+ 
+.cert-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin: 0 auto 1rem;
+}
+.cert-icon--nafdac {
+  background: #FBF3DF;
+  color: var(--color-secondary);
+}
+.cert-icon--pesticide {
+  background: #E8F5EC;
+  color: var(--color-success);
+}
+.cert-icon--lab {
+  background: #ECEDFB;
+  color: #4F46E5;
+}
+.cert-icon--son {
+  background: #E8F5EC;
+  color: var(--color-accent);
+}
+ 
+.cert-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+ 
+.cert-text {
+  font-size: 0.85rem;
+  color: #6b6b6b;
+  margin: 0;
+}
+ 
+@media (max-width: 575.98px) {
+  .certifications {
+    padding: 3.5rem 0;
+  }
+  .cert-card {
+    padding: 1.4rem 1.1rem;
+  }
+  .cert-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1.15rem;
+  }
+  .cert-title {
+    font-size: 0.92rem;
+  }
+}
+ 
+/* ===========================
+   Taste the difference — CTA
+   =========================== */
+.about-cta {
+  background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-700) 100%);
+  padding: 5rem 0;
+}
+ 
+.about-cta-heading {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 3.8vw, 2.7rem);
+  color: #fff;
+  margin-bottom: 1rem;
+}
+ 
+.about-cta-sub {
+  color: var(--color-on-primary-muted);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  max-width: 34rem;
+  margin: 0 auto 2rem;
+}
+ 
+@media (max-width: 575.98px) {
+  .about-cta {
+    padding: 3.5rem 0;
+  }
+  .about-cta-sub {
+    font-size: 0.92rem;
+  }
+}
