@@ -1,7 +1,6 @@
 {% extends "base.html" %}
  {% block styles %}
   <link rel="stylesheet" href="{{url_for('static', path='css/about.css')}}">
-
   {% endblock %}
 {% block content %}
 
@@ -116,6 +115,243 @@
       </div>
     </div>
   </section>
+
+
+
+  
+  <!-- The Farm — photo gallery -->
+  <section class="farm-life">
+    <div class="hero-inner">
+      <div class="farm-life-eyebrow">THE FARM</div>
+      <h2 class="farm-life-heading">Life at RedBased Agric</h2>
  
+      <div class="farm-grid">
+        <div class="farm-img farm-img--main">
+          <!-- Replace with the relative path to your local image -->
+          <img src="{{url_for('static', path='images/farmer-with-palm.png')}}" alt="Farm worker harvesting palm fruit bunches">
+        </div>
+        <div class="farm-img">
+          <img src="{{url_for('static', path='images/palm-kernel-3.png')}}" alt="Hands holding a basket of harvested palm fruit">
+        </div>
+        <div class="farm-img">
+          <img src="{{url_for('static', path='images/palm-kernel.png')}}" alt="Workers loading palm fruit bunches for processing">
+        </div>
+        <div class="farm-img">
+          <img src="{{url_for('static', path='images/palm-oil.png')}}" alt="Hand dipping into freshly pressed red palm oil">
+        </div>
+        <div class="farm-img">
+          <img src="{{url_for('static', path='images/palm-kernel-2.png')}}" alt="Pile of fresh red palm fruit">
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+ 
+  <!-- Milestones timeline (built last) -->
+  <section class="milestones">
+    <div class="hero-inner">
+      <div class="text-center milestones-header">
+        <div class="milestones-eyebrow">OUR JOURNEY</div>
+        <h2 class="milestones-heading">Milestones</h2>
+      </div>
+ 
+      <div class="milestones-track">
+ 
+        <div class="milestone-item left">
+          <div class="milestone-card">
+            <div class="milestone-year">2019</div>
+            <div class="milestone-title">Founded in Benue State</div>
+            <p class="milestone-text">Jane Lewis starts RedBased Agric Farm with 8 hectares and a mission: better palm oil for Nigerian kitchens</p>
+          </div>
+          <span class="milestone-dot"></span>
+        </div>
+ 
+        <div class="milestone-item right">
+          <span class="milestone-dot"></span>
+          <div class="milestone-card">
+            <div class="milestone-year">2020</div>
+            <div class="milestone-title">NAFDAC Certification</div>
+            <p class="milestone-text">After 14 months of rigorous inspections and lab testing, we earn our NAFDAC food production licence</p>
+          </div>
+        </div>
+ 
+        <div class="milestone-item left">
+          <div class="milestone-card">
+            <div class="milestone-year">2021</div>
+            <div class="milestone-title">Online Store Launch</div>
+            <p class="milestone-text">We launch our e-commerce platform and complete our first long-distance delivery to Lagos</p>
+          </div>
+          <span class="milestone-dot"></span>
+        </div>
+ 
+        <div class="milestone-item right">
+          <span class="milestone-dot"></span>
+          <div class="milestone-card">
+            <div class="milestone-year">2022</div>
+            <div class="milestone-title">Cold-Press Technology</div>
+            <p class="milestone-text">We invest in hydraulic cold-press extraction equipment, preserving &beta;-carotene and Vitamin E in every batch</p>
+          </div>
+        </div>
+ 
+        <div class="milestone-item left">
+          <div class="milestone-card">
+            <div class="milestone-year">2023</div>
+            <div class="milestone-title">Nationwide Delivery</div>
+            <p class="milestone-text">Partnership with courier networks enables delivery to all 36 states and the FCT</p>
+          </div>
+          <span class="milestone-dot"></span>
+        </div>
+ 
+        <div class="milestone-item right">
+          <span class="milestone-dot"></span>
+          <div class="milestone-card">
+            <div class="milestone-year">2024</div>
+            <div class="milestone-title">Farm Subscription Launch</div>
+            <p class="milestone-text">Monthly farm boxes launch to serve families who want consistent supply without repeat ordering</p>
+          </div>
+        </div>
+ 
+        <div class="milestone-item left">
+          <div class="milestone-card">
+            <div class="milestone-year">2025</div>
+            <div class="milestone-title">Farmer Training Programme</div>
+            <p class="milestone-text">We launch a quarterly training programme for 120+ smallholder farmers in our district</p>
+          </div>
+          <span class="milestone-dot"></span>
+        </div>
+ 
+        <div class="milestone-item right">
+          <span class="milestone-dot"></span>
+          <div class="milestone-card">
+            <div class="milestone-year">2026</div>
+            <div class="milestone-title">5,000+ Happy Customers</div>
+            <p class="milestone-text">Our community of loyal customers grows — and we're just getting started</p>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </section>
+ 
+
+    <!-- Meet the Team -->
+  <section class="team">
+    <div class="hero-inner">
+      <div class="text-center team-header">
+        <div class="team-eyebrow">THE PEOPLE</div>
+        <h2 class="team-heading">Meet the Team</h2>
+        <p class="team-sub">The faces behind every harvest, every delivery, every customer interaction</p>
+      </div>
+ 
+      <div class="row g-4">
+ 
+        <div class="col-6 col-lg-3">
+          <div class="team-member">
+            <div class="team-avatar team-avatar--1">JL</div>
+            <div class="team-name">Jane Lewis</div>
+            <div class="team-role">Founder &amp; Head Farmer</div>
+            <p class="team-bio">Former agricultural engineer who returned to her family land to build something lasting. 15 years of farming experience</p>
+          </div>
+        </div>
+ 
+        <div class="col-6 col-lg-3">
+          <div class="team-member">
+            <div class="team-avatar team-avatar--2">EE</div>
+            <div class="team-name">Emeka Eze</div>
+            <div class="team-role">Operations Manager</div>
+            <p class="team-bio">Logistics expert who ensures every order from Sokoto to Lagos arrives fresh, on time, and perfectly sealed</p>
+          </div>
+        </div>
+ 
+        <div class="col-6 col-lg-3">
+          <div class="team-member">
+            <div class="team-avatar team-avatar--3">IM</div>
+            <div class="team-name">Ibrahim Musa</div>
+            <div class="team-role">Quality Control Lead</div>
+            <p class="team-bio">Biochemist by training who tests every batch to the same standards he'd expect for his own family's table</p>
+          </div>
+        </div>
+ 
+        <div class="col-6 col-lg-3">
+          <div class="team-member">
+            <div class="team-avatar team-avatar--4">AN</div>
+            <div class="team-name">Amaka Nwosu</div>
+            <div class="team-role">Customer Experience</div>
+            <p class="team-bio">Ensures that every customer interaction before and after purchase reflects the care we put into our products</p>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </section>
+ 
+ 
+  <!-- Our Certifications -->
+  <section class="certifications">
+    <div class="hero-inner">
+      <div class="text-center certifications-header">
+        <div class="certifications-eyebrow">VERIFIED QUALITY</div>
+        <h2 class="certifications-heading">Our Certifications</h2>
+      </div>
+ 
+      <div class="row g-4">
+ 
+        <div class="col-6 col-lg-3">
+          <div class="cert-card">
+            <div class="cert-icon cert-icon--nafdac"><i class="bi bi-patch-check-fill"></i></div>
+            <div class="cert-title">NAFDAC Approved</div>
+            <p class="cert-text">NAFDAC Reg. No. 01-1234</p>
+          </div>
+        </div>
+ 
+        <div class="col-6 col-lg-3">
+          <div class="cert-card">
+            <div class="cert-icon cert-icon--pesticide">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 3C11 3 4 10 4 19c0 .6.4 1 1 1 9 0 16-7 16-16 0-.6-.4-1-1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M5 19c4-2 8-6 10-10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="cert-title">No Synthetic Pesticides</div>
+            <p class="cert-text">Organic farming methods</p>
+          </div>
+        </div>
+ 
+        <div class="col-6 col-lg-3">
+          <div class="cert-card">
+            <div class="cert-icon cert-icon--lab"><i class="bi bi-shield-check"></i></div>
+            <div class="cert-title">Lab-Tested Quality</div>
+            <p class="cert-text">Every batch verified</p>
+          </div>
+        </div>
+ 
+        <div class="col-6 col-lg-3">
+          <div class="cert-card">
+            <div class="cert-icon cert-icon--son"><i class="bi bi-award-fill"></i></div>
+            <div class="cert-title">SON Certified</div>
+            <p class="cert-text">Standards Organisation of Nigeria</p>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </section>
+ 
+ 
+  <!-- Taste the difference — closing CTA -->
+  <section class="about-cta">
+    <div class="hero-inner text-center">
+      <h2 class="about-cta-heading">Taste the difference for yourself</h2>
+      <p class="about-cta-sub">Order your first bottle of RedBased palm oil and discover what farm-direct really means</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="#shop" class="btn btn-shop">
+          Shop Now <i class="bi bi-arrow-right"></i>
+        </a>
+        <a href="#contact" class="btn btn-create">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
 
 {% endblock %}
