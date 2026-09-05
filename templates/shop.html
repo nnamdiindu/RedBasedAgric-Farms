@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+    {% block styles %}
+        <link rel="stylesheet" href="{{url_for('static', path='css/shop.css')}}">
+    {% endblock %}
+{% block content %}
+
+<!-- Shop hero -->
+<section class="shop-hero">
+    <div class="shop-hero-inner">
+        <div>
+            <div class="shop-hero-eyebrow">OUR STORE</div>
+            <h1 class="shop-hero-title">All Products</h1>
+            <p class="shop-hero-sub">16 premium farm products, shipped fresh, direct to you</p>
+        </div>
+        <div class="shop-search">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search products....">
+        </div>
+    </div>
+</section>
+
+<!-- Shop body -->
+<main class="shop-main">
+
+    <div class="shop-toolbar">
+        <div class="shop-results-count">Showing <strong>16</strong> results</div>
+        <button type="button" class="shop-sort">
+            <i class="bi bi-arrow-down-up"></i> Featured <i class="bi bi-chevron-down"></i>
+        </button>
+    </div>
+
+    <div class="shop-layout">
+
+        <!-- Filters sidebar -->
+        <aside class="shop-filters">
+
+            <div class="shop-filter-block">
+                <div class="shop-filter-title">CATEGORY</div>
+                <div class="shop-category-list">
+                    <button type="button" class="shop-category-item active">
+                        All <span class="count">16</span>
+                    </button>
+                    <button type="button" class="shop-category-item">
+                        Palm Oil <span class="count">4</span>
+                    </button>
+                    <button type="button" class="shop-category-item">
+                        Cooking Oils <span class="count">3</span>
+                    </button>
+                    <button type="button" class="shop-category-item">
+                        Flour &amp; Grains <span class="count">3</span>
+                    </button>
+                    <button type="button" class="shop-category-item">
+                        Fresh Produce <span class="count">3</span>
+                    </button>
+                    <button type="button" class="shop-category-item">
+                        Bundles <span class="count">3</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="shop-filter-block">
+                <div class="shop-filter-title">PRICE RANGE</div>
+                <div class="shop-price-labels">
+                    <span>₦0</span>
+                    <span>₦25,000</span>
+                </div>
+                <div class="shop-range-track">
+                    <div class="shop-range-fill"></div>
+                    <span class="shop-range-handle start"></span>
+                    <span class="shop-range-handle end"></span>
+                </div>
+                <div class="shop-price-inputs">
+                    <input type="number" value="0" aria-label="Minimum price">
+                    <span>&mdash;</span>
+                    <input type="number" value="25000" aria-label="Maximum price">
+                </div>
+            </div>
+
+            <div class="shop-filter-block">
+                <div class="shop-filter-title">AVAILABILITY</div>
+                <div class="shop-availability">
+                    <label class="shop-switch">
+                        <input type="checkbox">
+                        <span class="shop-switch-track"></span>
+                    </label>
+                    <span class="shop-availability-label">In stock only</span>
+                </div>
+            </div>
+
+            <button type="button" class="shop-reset-btn">Reset Filters</button>
+        </aside>
+
+        <!-- Product grid + pagination -->
+        <div>
+            <div class="shop-grid">
+
+                <!-- Card 1 -->
+                <article class="product-card">
+                    <div class="product-media" style="background: var(--color-primary-100);">
+                        <span class="product-badge best-seller">Best Seller</span>
+                        <button type="button" class="product-wishlist" aria-label="Add to wishlist"><i
+                                class="bi bi-heart"></i></button>
+                        <img src="{{url_for('static', path='images/palm-oil.png')}}" alt="Premium Red Palm Oil - 1L">
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">Palm Oil</div>
+                        <h3 class="product-name">Premium Red Palm Oil - 1L</h3>
+                        <div class="product-rating"><span class="stars">★★★★★</span> (218)</div>
+                        <span class="product-stock"><span class="dot"></span> In Stock</span>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="current">₦4,500</span>
+                                <span class="original">₦5,200</span>
+                            </div>
+                            <button type="button" class="product-add"><i class="bi bi-cart3"></i> Add</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="product-card">
+                    <div class="product-media" style="background: #F1F1EF;">
+                        <button type="button" class="product-wishlist" aria-label="Add to wishlist"><i
+                                class="bi bi-heart"></i></button>
+                        <img src="{{url_for('static', path='images/redoil-5L.png')}}" alt="Red Palm Oil - 5L">
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">Palm Oil</div>
+                        <h3 class="product-name">Premium Red Palm Oil - 1L</h3>
+                        <div class="product-rating"><span class="stars">★★★★★</span> (218)</div>
+                        <span class="product-stock"><span class="dot"></span> In Stock</span>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="current">₦4,500</span>
+                                <span class="original">₦5,200</span>
+                            </div>
+                            <button type="button" class="product-add"><i class="bi bi-cart3"></i> Add</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="product-card">
+                    <div class="product-media" style="background: var(--color-accent-100);">
+                        <span class="product-badge popular">Popular</span>
+                        <button type="button" class="product-wishlist" aria-label="Add to wishlist"><i
+                                class="bi bi-heart"></i></button>
+                        <img src="{{url_for('static', path='images/redoil-5L-2.png')}}" alt="Red Palm Oil - 5L">
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">Palm Oil</div>
+                        <h3 class="product-name">Premium Red Palm Oil - 1L</h3>
+                        <div class="product-rating"><span class="stars">★★★★★</span> (218)</div>
+                        <span class="product-stock"><span class="dot"></span> In Stock</span>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="current">₦4,500</span>
+                                <span class="original">₦5,200</span>
+                            </div>
+                            <button type="button" class="product-add"><i class="bi bi-cart3"></i> Add</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="product-card">
+                    <div class="product-media" style="background: #F1F1EF;">
+                        <button type="button" class="product-wishlist" aria-label="Add to wishlist"><i
+                                class="bi bi-heart"></i></button>
+                        <img src="{{url_for('static', path='images/palm-kernel.png')}}" alt="Palm Kernel Oil">
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">Palm Oil</div>
+                        <h3 class="product-name">Premium Red Palm Oil - 1L</h3>
+                        <div class="product-rating"><span class="stars">★★★★★</span> (218)</div>
+                        <span class="product-stock"><span class="dot"></span> In Stock</span>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="current">₦4,500</span>
+                                <span class="original">₦5,200</span>
+                            </div>
+                            <button type="button" class="product-add"><i class="bi bi-cart3"></i> Add</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 5 -->
+                <article class="product-card">
+                    <div class="product-media" style="background: var(--color-accent-100);">
+                        <span class="product-badge popular">Popular</span>
+                        <button type="button" class="product-wishlist" aria-label="Add to wishlist"><i
+                                class="bi bi-heart"></i></button>
+                        <img src="{{url_for('static', path='images/palm-kernel-2.png')}}" alt="Palm Kernel Oil">
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">Palm Oil</div>
+                        <h3 class="product-name">Premium Red Palm Oil - 1L</h3>
+                        <div class="product-rating"><span class="stars">★★★★★</span> (218)</div>
+                        <span class="product-stock"><span class="dot"></span> In Stock</span>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="current">₦4,500</span>
+                                <span class="original">₦5,200</span>
+                            </div>
+                            <button type="button" class="product-add"><i class="bi bi-cart3"></i> Add</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 6 -->
+                <article class="product-card">
+                    <div class="product-media" style="background: #F1F1EF;">
+                        <button type="button" class="product-wishlist" aria-label="Add to wishlist"><i
+                                class="bi bi-heart"></i></button>
+                        <img src="{{url_for('static', path='images/palm-kernel-3.png')}}" alt="Palm Kernel Oil">
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">Palm Oil</div>
+                        <h3 class="product-name">Premium Red Palm Oil - 1L</h3>
+                        <div class="product-rating"><span class="stars">★★★★★</span> (218)</div>
+                        <span class="product-stock"><span class="dot"></span> In Stock</span>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="current">₦4,500</span>
+                                <span class="original">₦5,200</span>
+                            </div>
+                            <button type="button" class="product-add"><i class="bi bi-cart3"></i> Add</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 7 -->
+                <article class="product-card">
+                    <div class="product-media" style="background: var(--color-primary-100);">
+                        <span class="product-badge best-seller">Best Seller</span>
+                        <button type="button" class="product-wishlist" aria-label="Add to wishlist"><i
+                                class="bi bi-heart"></i></button>
+                        <img src="{{url_for('static', path='images/can.png')}}" alt="Farm Product Bundle">
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">Palm Oil</div>
+                        <h3 class="product-name">Premium Red Palm Oil - 1L</h3>
+                        <div class="product-rating"><span class="stars">★★★★★</span> (218)</div>
+                        <span class="product-stock"><span class="dot"></span> In Stock</span>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="current">₦4,500</span>
+                                <span class="original">₦5,200</span>
+                            </div>
+                            <button type="button" class="product-add"><i class="bi bi-cart3"></i> Add</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 8 -->
+                <article class="product-card">
+                    <div class="product-media" style="background: var(--color-accent-100);">
+                        <span class="product-badge popular">Popular</span>
+                        <button type="button" class="product-wishlist" aria-label="Add to wishlist"><i
+                                class="bi bi-heart"></i></button>
+                        <img src="{{url_for('static', path='images/farmer-with-palm.png')}}" alt="Farm Fresh Produce">
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">Palm Oil</div>
+                        <h3 class="product-name">Premium Red Palm Oil - 1L</h3>
+                        <div class="product-rating"><span class="stars">★★★★★</span> (218)</div>
+                        <span class="product-stock"><span class="dot"></span> In Stock</span>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="current">₦4,500</span>
+                                <span class="original">₦5,200</span>
+                            </div>
+                            <button type="button" class="product-add"><i class="bi bi-cart3"></i> Add</button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="shop-pagination">
+                <div class="shop-pagination-info">Page <strong>1</strong> of <strong>2</strong></div>
+                <div class="shop-pagination-controls">
+                    <button type="button" class="shop-page-btn" disabled aria-label="Previous page"><i
+                            class="bi bi-chevron-left"></i></button>
+                    <button type="button" class="shop-page-btn active">1</button>
+                    <button type="button" class="shop-page-btn">2</button>
+                    <button type="button" class="shop-page-btn" aria-label="Next page"><i
+                            class="bi bi-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}
