@@ -71,3 +71,10 @@ async def order_confirmation(request: Request):
         request=request,
         name="order_confirmation.html"
     )
+
+@app.get("/contact")
+async def contact_us(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="contact.html"
+    )
