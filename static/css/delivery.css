@@ -1,0 +1,221 @@
+/* ===== Delivery step additions ===== */
+
+/* Step indicator: completed state */
+.step-item.is-complete .step-circle {
+    background: var(--color-accent, #52B788);
+    color: #FFFFFF;
+}
+
+.step-item.is-complete .step-circle i {
+    font-size: 1.1rem;
+}
+
+.step-item.is-complete .step-label {
+    color: var(--color-text, #222222);
+}
+
+.step-connector.is-complete {
+    background: var(--color-accent, #52B788);
+}
+
+/* Delivery option cards */
+.delivery-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.delivery-option {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 1.5px solid var(--color-primary-100, #E1E7E3);
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.delivery-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.delivery-option.is-selected,
+.delivery-option:has(input:checked) {
+    border-color: var(--color-primary, #1B4332);
+    background: var(--color-primary-100, #F0F3F1);
+}
+
+.delivery-icon-box {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--color-primary-100, #E7ECE9);
+    color: var(--color-primary, #1B4332);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.delivery-option.is-selected .delivery-icon-box,
+.delivery-option:has(input:checked) .delivery-icon-box {
+    background: var(--color-primary, #1B4332);
+    color: #FFFFFF;
+}
+
+.delivery-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.delivery-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.delivery-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-text, #222222);
+}
+
+.delivery-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.badge-accent {
+    background: var(--color-accent, #52B788);
+    color: #FFFFFF;
+}
+
+.badge-neutral {
+    background: var(--color-primary-100, #E7ECE9);
+    color: var(--color-text, #222222);
+}
+
+.delivery-meta {
+    font-size: 0.82rem;
+    color: #6B7280;
+}
+
+.delivery-price-row {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.delivery-price {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-text, #222222);
+    white-space: nowrap;
+}
+
+.delivery-price.price-free {
+    color: var(--color-accent-800, #2F7A5C);
+}
+
+.delivery-radio {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary-100, #D1D9D5);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.delivery-option.is-selected .delivery-radio,
+.delivery-option:has(input:checked) .delivery-radio {
+    border-color: var(--color-primary, #1B4332);
+}
+
+.delivery-option.is-selected .delivery-radio::after,
+.delivery-option:has(input:checked) .delivery-radio::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--color-primary, #1B4332);
+}
+
+/* Shipping-to card */
+.shipping-to-card {
+    background: #FFFFFF;
+    border: 1px solid var(--color-primary-100, #E7ECE9);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 20px;
+}
+
+.shipping-to-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.shipping-to-header span:first-child {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #9CA3AF;
+}
+
+.shipping-to-edit {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent-800, #2F7A5C);
+    text-decoration: none;
+}
+
+.shipping-to-edit:hover {
+    text-decoration: underline;
+}
+
+.shipping-to-name {
+    font-weight: 700;
+    color: var(--color-text, #222222);
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+}
+
+.shipping-to-address {
+    font-size: 0.85rem;
+    color: #6B7280;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+    .delivery-option {
+        flex-wrap: wrap;
+        padding: 14px;
+    }
+
+    .delivery-price-row {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-between;
+        padding-left: 58px;
+        /* aligns under icon-box + gap */
+    }
+}
