@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', path='css/contact.css')}}">
+{% endblock %}
+{% block content %}
+<!-- ===================== Contact Hero Section ===================== -->
+<section class="contact-hero">
+    <div class="container">
+        <div class="contact-hero-inner">
+            <p class="contact-hero-eyebrow">Get in touch</p>
+            <h1 class="contact-hero-title">
+                We'd love to<br>
+                <span class="text-gold">hear from you</span>
+            </h1>
+            <p class="contact-hero-subtitle">
+                Whether you have a question about an order, want to buy in bulk, or just want to say hello, our team
+                responds within 2 hours.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== Contact Form + Info Section ===================== -->
+<section class="contact-main">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- Form column -->
+            <div class="col-lg-7">
+                <div class="contact-card">
+                    <h2 class="contact-card-title">Send us a message</h2>
+                    <p class="contact-card-subtitle">We typically reply within 2 business hours</p>
+
+                    <form class="contact-form" novalidate>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="contactName" class="form-label-custom">Full Name</label>
+                                <input type="text" id="contactName" name="name" class="contact-input"
+                                    placeholder="Billy Kimber" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="contactEmail" class="form-label-custom">Email Address</label>
+                                <input type="email" id="contactEmail" name="email" class="contact-input"
+                                    placeholder="billykimber@example.com" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="contactSubject" class="form-label-custom">Subject</label>
+                                <select id="contactSubject" name="subject" class="contact-input" required>
+                                    <option value="" selected disabled>Select a subject...</option>
+                                    <option value="order">Order inquiry</option>
+                                    <option value="bulk">Bulk / wholesale purchase</option>
+                                    <option value="support">Customer support</option>
+                                    <option value="partnership">Partnership</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="contactMessage" class="form-label-custom">Message</label>
+                                <textarea id="contactMessage" name="message" class="contact-input contact-textarea"
+                                    rows="5" placeholder="Tell us how we can help you..." required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="contact-submit-btn">
+                                    Send Message
+                                    <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Info column -->
+            <div class="col-lg-5">
+                <div class="contact-location-card">
+                    <div class="contact-location-icon">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <h3 class="contact-location-name">RedBased Agric Farm</h3>
+                    <p class="contact-location-sub">Gboko, Benue State &middot; Nigeria</p>
+                </div>
+
+                <div class="contact-details-card">
+                    <div class="contact-detail-row">
+                        <div class="contact-detail-icon"><i class="bi bi-telephone-fill"></i></div>
+                        <div class="contact-detail-text">
+                            <span class="contact-detail-label">Phone</span>
+                            <span class="contact-detail-value">+234 800 000 0000</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail-row">
+                        <div class="contact-detail-icon"><i class="bi bi-chat-dots-fill"></i></div>
+                        <div class="contact-detail-text">
+                            <span class="contact-detail-label">WhatsApp</span>
+                            <span class="contact-detail-value">+234 800 000 0000</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail-row">
+                        <div class="contact-detail-icon"><i class="bi bi-envelope-fill"></i></div>
+                        <div class="contact-detail-text">
+                            <span class="contact-detail-label">Email</span>
+                            <span class="contact-detail-value">hello@redbasedagric.com</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail-row">
+                        <div class="contact-detail-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div class="contact-detail-text">
+                            <span class="contact-detail-label">Address</span>
+                            <span class="contact-detail-value">Farm Road, Gboko LGA, Benue State</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-hours-card">
+                    <h3 class="contact-hours-title">
+                        <i class="bi bi-clock-fill"></i> Business Hours
+                    </h3>
+                    <div class="contact-hours-row">
+                        <span>Monday &ndash; Friday</span>
+                        <span class="contact-hours-value">8:00 AM &ndash; 6:00 PM</span>
+                    </div>
+                    <div class="contact-hours-row">
+                        <span>Saturday</span>
+                        <span class="contact-hours-value">9:00 AM &ndash; 4:00 PM</span>
+                    </div>
+                    <div class="contact-hours-row">
+                        <span>Sunday</span>
+                        <span class="contact-hours-value contact-hours-closed">Closed</span>
+                    </div>
+                    <div class="contact-hours-row">
+                        <span>Public Holidays</span>
+                        <span class="contact-hours-value">Emergency support only</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
