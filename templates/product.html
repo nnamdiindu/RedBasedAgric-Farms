@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', path='css/product.css')}}">
+{% endblock %}
+{% block content %}
+<!-- Product detail -->
+
+<main class="pdp-main">
+
+    <a href="/shop" class="pdp-back"><i class="bi bi-arrow-left"></i> Back to Shop</a>
+
+    <div class="pdp-layout">
+
+        <!-- Gallery -->
+        <div class="pdp-gallery">
+            <div class="pdp-thumbs">
+                <button type="button" class="pdp-thumb active">
+                    <img src="./images/products/palm-oil-jerrycans.jpg" alt="Palm oil jerrycans">
+                </button>
+                <button type="button" class="pdp-thumb">
+                    <img src="./images/products/kings-oil-1.jpg" alt="King's oil product shot">
+                </button>
+                <button type="button" class="pdp-thumb">
+                    <img src="./images/products/oil-bottles.jpg" alt="Oil bottles">
+                </button>
+                <button type="button" class="pdp-thumb">
+                    <img src="./images/products/kings-oil-2.jpg" alt="King's oil product shot">
+                </button>
+            </div>
+            <div class="pdp-main-image">
+                <img src="./images/products/palm-oil-jerrycans-large.jpg" alt="Premium Red Palm Oil jerrycans">
+            </div>
+        </div>
+
+        <!-- Details -->
+        <div class="pdp-details">
+
+            <div class="pdp-badges-row">
+                <div class="pdp-badges">
+                    <span class="pdp-badge-best-seller">Best Seller</span>
+                    <span class="pdp-category">Palm Oil</span>
+                </div>
+                <div class="pdp-icon-actions">
+                    <button type="button" class="pdp-icon-btn" aria-label="Add to wishlist"><i
+                            class="bi bi-heart"></i></button>
+                    <button type="button" class="pdp-icon-btn" aria-label="Share this product"><i
+                            class="bi bi-share"></i></button>
+                </div>
+            </div>
+
+            <h1 class="pdp-title">Premium Red Palm Oil (1L)</h1>
+
+            <div class="pdp-rating-row">
+                <span class="stars">★★★★★</span>
+                <span class="pdp-rating-score">4.9</span>
+                <a href="#reviews" class="pdp-reviews-link">218 reviews</a>
+                <span class="pdp-stock"><span class="dot"></span> In Stock</span>
+            </div>
+
+            <div class="pdp-price">₦4,500</div>
+
+            <div class="pdp-meta-row">
+                <div class="pdp-meta-item">
+                    <div class="pdp-meta-icon"><i class="bi bi-truck"></i></div>
+                    <div>
+                        <div class="pdp-meta-label">Origin</div>
+                        <div class="pdp-meta-value">Benue State, NG</div>
+                    </div>
+                </div>
+                <div class="pdp-meta-item">
+                    <div class="pdp-meta-icon"><i class="bi bi-calendar3"></i></div>
+                    <div>
+                        <div class="pdp-meta-label">Harvested</div>
+                        <div class="pdp-meta-value">July 2026</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pdp-section-label">SELECT SIZE</div>
+            <div class="pdp-size-options">
+                <button type="button" class="pdp-size-btn">500ml</button>
+                <button type="button" class="pdp-size-btn active">1L</button>
+                <button type="button" class="pdp-size-btn">2L</button>
+                <button type="button" class="pdp-size-btn">5L</button>
+            </div>
+
+            <div class="pdp-section-label">QUANTITY</div>
+            <div class="pdp-quantity">
+                <div class="pdp-qty-control">
+                    <button type="button" class="pdp-qty-btn" aria-label="Decrease quantity">&minus;</button>
+                    <span class="pdp-qty-value">1</span>
+                    <button type="button" class="pdp-qty-btn" aria-label="Increase quantity">+</button>
+                </div>
+            </div>
+
+            <button type="button" class="pdp-add-btn"><i class="bi bi-cart3"></i> Add to Cart</button>
+
+            <div class="pdp-perks">
+                <div class="pdp-perk"><i class="bi bi-truck"></i> Free delivery on orders over ₦10,000</div>
+                <div class="pdp-perk"><i class="bi bi-arrow-counterclockwise"></i> 7-day hassle-free returns</div>
+                <div class="pdp-perk"><i class="bi bi-lock-fill"></i> Secure checkout with Paystack &amp; Flutterwave
+                </div>
+                <div class="pdp-perk"><i class="bi bi-patch-check-fill"></i> 100% farm-direct &middot; No preservatives
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="pdp-tabs">
+        <button type="button" class="pdp-tab active">Description</button>
+        <button type="button" class="pdp-tab">Shipping</button>
+        <button type="button" class="pdp-tab" id="reviews">Reviews (5)</button>
+    </div>
+
+    <div class="pdp-content-grid">
+
+        <div class="pdp-about">
+            <h2>About this product</h2>
+            <p>Cold-pressed, unrefined red palm oil with full nutritional profile.</p>
+            <p>Sourced exclusively from our plantation in Benue State, where palms are cultivated without synthetic
+                pesticides or herbicides. We harvest only ripe, hand-selected fresh fruit bunches at peak oil content.
+            </p>
+
+            <div class="pdp-specs">
+                <div>
+                    <div class="pdp-spec-label">Extraction</div>
+                    <div class="pdp-spec-value">Cold-pressed</div>
+                </div>
+                <div>
+                    <div class="pdp-spec-label">Colour</div>
+                    <div class="pdp-spec-value">Deep red (high β-carotene)</div>
+                </div>
+                <div>
+                    <div class="pdp-spec-label">Shelf Life</div>
+                    <div class="pdp-spec-value">18 months (sealed)</div>
+                </div>
+                <div>
+                    <div class="pdp-spec-label">Certification</div>
+                    <div class="pdp-spec-value">NAFDAC Approved</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pdp-nutrition">
+            <h3>Nutritional highlights</h3>
+
+            <div class="pdp-nutrient">
+                <div class="pdp-nutrient-row">
+                    <span>β-Carotene</span>
+                    <span>~500 ppm</span>
+                </div>
+                <div class="pdp-nutrient-track">
+                    <div class="pdp-nutrient-fill" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <div class="pdp-nutrient">
+                <div class="pdp-nutrient-row">
+                    <span>Vitamin E</span>
+                    <span>~900 ppm</span>
+                </div>
+                <div class="pdp-nutrient-track">
+                    <div class="pdp-nutrient-fill" style="width: 60%;"></div>
+                </div>
+            </div>
+
+            <div class="pdp-nutrient">
+                <div class="pdp-nutrient-row">
+                    <span>Oleic acid (Omega-9)</span>
+                    <span>~40%</span>
+                </div>
+                <div class="pdp-nutrient-track">
+                    <div class="pdp-nutrient-fill" style="width: 40%;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+{% endblock %}
+
+{% block script %}
+<script>
+    // Size selector
+    document.querySelectorAll('.pdp-size-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.pdp-size-btn').forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+        });
+    });
+
+    // Thumbnail selector
+    document.querySelectorAll('.pdp-thumb').forEach(function (thumb) {
+        thumb.addEventListener('click', function () {
+            document.querySelectorAll('.pdp-thumb').forEach(function (t) { t.classList.remove('active'); });
+            thumb.classList.add('active');
+            var mainImg = document.querySelector('.pdp-main-image img');
+            var thumbImg = thumb.querySelector('img');
+            if (mainImg && thumbImg) { mainImg.src = thumbImg.src; }
+        });
+    });
+
+    // Quantity stepper
+    (function () {
+        var qtyEl = document.querySelector('.pdp-qty-value');
+        var btns = document.querySelectorAll('.pdp-qty-btn');
+        if (!qtyEl || btns.length < 2) return;
+        var qty = parseInt(qtyEl.textContent, 10) || 1;
+        btns[0].addEventListener('click', function () {
+            qty = Math.max(1, qty - 1);
+            qtyEl.textContent = qty;
+        });
+        btns[1].addEventListener('click', function () {
+            qty += 1;
+            qtyEl.textContent = qty;
+        });
+    })();
+
+    // Tabs (Description / Shipping / Reviews) — swap this out for real
+    // panel content when each tab's markup is ready.
+    document.querySelectorAll('.pdp-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.pdp-tab').forEach(function (t) { t.classList.remove('active'); });
+            tab.classList.add('active');
+        });
+    });
+</script>
+{% endblock %}

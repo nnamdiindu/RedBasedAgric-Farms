@@ -56,7 +56,7 @@
           <li><a href="{{url_for('index')}}" class="nav-link px-2 link-secondary">Home</a></li>
           <li><a href="{{url_for('about_us')}}" class="nav-link px-2 link-dark">About</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Shop</a></li>
+          <li><a href="{{url_for('shop')}}" class="nav-link px-2 link-dark">Shop</a></li>
         </ul>
 
         <div class="site-actions d-flex flex-column flex-lg-row gap-2 ms-lg-3">
@@ -177,6 +177,8 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
     <script src="{{url_for('static', path='javascript/index.js')}}"></script>
+    {% block script %}
+    {% endblock %}
 </body>
 
 </html>

@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', path='css/payment.css')}}">
+{% endblock %}
+{% block content %}
+<div class="checkout-page">
+  <div class="checkout-inner">
+
+    <div class="checkout-topbar">
+      <a href="{{ cart_url|default('/cart') }}" class="back-to-cart">
+        <i class="bi bi-arrow-left"></i>
+        <span>Back to Cart</span>
+      </a>
+      <h1 class="checkout-title">Checkout</h1>
+    </div>
+
+    <nav class="checkout-steps" aria-label="Checkout progress">
+      <div class="checkout-step is-complete">
+        <div class="checkout-step-circle" aria-hidden="true"><i class="bi bi-check2"></i></div>
+        <span class="checkout-step-label">Shipping</span>
+      </div>
+      <div class="checkout-step-line is-complete"></div>
+
+      <div class="checkout-step is-complete">
+        <div class="checkout-step-circle" aria-hidden="true"><i class="bi bi-check2"></i></div>
+        <span class="checkout-step-label">Delivery</span>
+      </div>
+      <div class="checkout-step-line is-complete"></div>
+
+      <div class="checkout-step is-active" aria-current="step">
+        <div class="checkout-step-circle" aria-hidden="true">3</div>
+        <span class="checkout-step-label">Payment</span>
+      </div>
+      <div class="checkout-step-line"></div>
+
+      <div class="checkout-step">
+        <div class="checkout-step-circle" aria-hidden="true">4</div>
+        <span class="checkout-step-label">Confirm</span>
+      </div>
+    </nav>
+
+    <form class="row g-4 checkout-main" method="post" action="{{ payment_submit_url|default('#') }}">
+      <div class="col-lg-8">
+        <div class="payment-card">
+          <h2>Payment</h2>
+          <p class="payment-subtitle">All transactions are encrypted and secure</p>
+
+          <div class="payment-methods" role="radiogroup" aria-label="Payment method">
+
+            <label class="payment-method is-selected">
+              <input type="radio" name="payment_method" value="card" checked>
+              <span class="payment-method-icon" aria-hidden="true"><i class="bi bi-credit-card-2-front"></i></span>
+              <span class="payment-method-text">
+                <strong>Debit/Credit Card</strong>
+                <small>Visa, MasterCard, Verve</small>
+              </span>
+              <span class="payment-method-radio" aria-hidden="true"></span>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="payment_method" value="paystack">
+              <span class="payment-method-icon" aria-hidden="true"><i class="bi bi-phone"></i></span>
+              <span class="payment-method-text">
+                <strong>Paystack</strong>
+                <small>Pay via Paystack checkout</small>
+              </span>
+              <span class="payment-method-radio" aria-hidden="true"></span>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="payment_method" value="flutterwave">
+              <span class="payment-method-icon" aria-hidden="true"><i class="bi bi-wallet2"></i></span>
+              <span class="payment-method-text">
+                <strong>Flutterwave</strong>
+                <small>Pay via Flutterwave</small>
+              </span>
+              <span class="payment-method-radio" aria-hidden="true"></span>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="payment_method" value="bank_transfer">
+              <span class="payment-method-icon" aria-hidden="true"><i class="bi bi-bank"></i></span>
+              <span class="payment-method-text">
+                <strong>Bank Transfer</strong>
+                <small>GTBank, Zenith, Access...</small>
+              </span>
+              <span class="payment-method-radio" aria-hidden="true"></span>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="payment_method" value="google_pay">
+              <span class="payment-method-icon" aria-hidden="true"><i class="bi bi-google"></i></span>
+              <span class="payment-method-text">
+                <strong>Google Pay</strong>
+                <small>Pay with Google</small>
+              </span>
+              <span class="payment-method-radio" aria-hidden="true"></span>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="payment_method" value="cod">
+              <span class="payment-method-icon" aria-hidden="true"><i class="bi bi-cash-coin"></i></span>
+              <span class="payment-method-text">
+                <strong>Cash on Delivery</strong>
+                <small>Pay when order arrives</small>
+              </span>
+              <span class="payment-method-radio" aria-hidden="true"></span>
+            </label>
+
+          </div>
+
+          <div class="card-details" id="cardDetails">
+            <h3>Card Details</h3>
+
+            <div class="form-field">
+              <label for="cardNumber">Card Number</label>
+              <input type="text" id="cardNumber" name="card_number" placeholder="0000 0000 0000 0000" inputmode="numeric" autocomplete="cc-number" maxlength="19">
+            </div>
+
+            <div class="form-field">
+              <label for="cardHolder">Card Holder Name</label>
+              <input type="text" id="cardHolder" name="card_holder" placeholder="BILLY KIMBER" autocomplete="cc-name">
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-field">
+                <label for="cardExpiry">Expiry</label>
+                <input type="text" id="cardExpiry" name="card_expiry" placeholder="MM/YY" inputmode="numeric" autocomplete="cc-exp" maxlength="5">
+              </div>
+              <div class="form-field">
+                <label for="cardCvv">CVV</label>
+                <input type="text" id="cardCvv" name="card_cvv" placeholder="123" inputmode="numeric" autocomplete="cc-csc" maxlength="4">
+              </div>
+            </div>
+          </div>
+
+          <div class="trust-badges">
+            <span><i class="bi bi-lock-fill"></i> SSL Encrypted</span>
+            <span><i class="bi bi-patch-check-fill"></i> PCI Compliant</span>
+            <span><i class="bi bi-patch-check-fill"></i> NAFDAC Verified</span>
+          </div>
+
+          <button type="submit" class="place-order-btn">
+            <span>{{ total_display|default('₦13,500') }} - Place Order</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-lg-4 order-summary-col">
+        <div class="order-summary-card">
+          <h2>Order Summary</h2>
+
+          {% for item in cart_items|default([
+            {'name': 'Premium Red Palm Oil (1L)', 'variant': '1L · qty 2', 'price_display': '₦9,000', 'image': './images/palm-oil-1l.jpg'},
+            {'name': 'Premium Red Palm Oil (1L)', 'variant': '1L · qty 1', 'price_display': '₦4,500', 'image': './images/palm-oil-1l.jpg'}
+          ]) %}
+          <div class="order-item">
+            <img src="{{ item.image }}" alt="{{ item.name }}">
+            <div class="order-item-info">
+              <strong>{{ item.name }}</strong>
+              <small>{{ item.variant }}</small>
+            </div>
+            <span class="order-item-price">{{ item.price_display }}</span>
+          </div>
+          {% endfor %}
+
+          <hr>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{ subtotal_display|default('₦13,500') }}</span>
+          </div>
+          <div class="summary-row {{ 'is-free' if shipping_is_free|default(true) else '' }}">
+            <span>Shipping</span>
+            <span>{{ shipping_display|default('Free') }}</span>
+          </div>
+
+          <hr>
+
+          <div class="summary-row is-total">
+            <span>Total</span>
+            <span>{{ total_display|default('₦13,500') }}</span>
+          </div>
+        </div>
+
+        {% set shipping_address = shipping_address|default({
+          'name': 'Billy Kimber',
+          'line1': 'No 12 Banana Island, Lagos',
+          'line2': 'Ikeja, Lagos'
+        }) %}
+        <div class="shipping-card">
+          <div class="shipping-card-header">
+            <span>Shipping To</span>
+            <a href="{{ shipping_edit_url|default('#') }}">Edit</a>
+          </div>
+          <strong>{{ shipping_address.name }}</strong>
+          <p>{{ shipping_address.line1 }}<br>{{ shipping_address.line2 }}</p>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  (function () {
+    var methods = document.querySelectorAll('.payment-method');
+    var cardDetails = document.getElementById('cardDetails');
+
+    function updateSelection() {
+      methods.forEach(function (method) {
+        var input = method.querySelector('input[type="radio"]');
+        method.classList.toggle('is-selected', input.checked);
+      });
+      var selected = document.querySelector('input[name="payment_method"]:checked');
+      if (cardDetails) {
+        cardDetails.style.display = selected && selected.value === 'card' ? '' : 'none';
+      }
+    }
+
+    methods.forEach(function (method) {
+      var input = method.querySelector('input[type="radio"]');
+      input.addEventListener('change', updateSelection);
+    });
+
+    updateSelection();
+  })();
+</script>
+{% endblock %}

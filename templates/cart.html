@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', path='css/cart.css')}}">
+{% endblock %}
+{% block content %}
+<section class="cart-section">
+    <div class="cart-inner">
+
+        <!-- Header -->
+        <div class="cart-header">
+            <a href="/shop" class="cart-back-link">
+                <i class="bi bi-arrow-left"></i>
+                <span>Continue Shopping</span>
+            </a>
+            <div class="cart-title-group">
+                <h1 class="cart-title">Your Cart</h1>
+                <span class="cart-badge" id="cartItemCount">3 items</span>
+            </div>
+        </div>
+
+        <!-- Free shipping banner -->
+        <div class="cart-shipping-banner">
+            <i class="bi bi-check-circle-fill"></i>
+            <p>🎉 You qualify for <strong>free shipping!</strong></p>
+        </div>
+
+        <div class="cart-layout">
+
+            <!-- Cart items -->
+            <div class="cart-items" id="cartItems">
+
+                <div class="cart-item-card" data-unit-price="4500" data-qty="2">
+                    <div class="cart-item-thumb thumb-a">
+                        <img src="./images/palm-oil-1.jpg" alt="Premium Red Palm Oil, 1 litre bottle">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-top">
+                            <div>
+                                <span class="cart-item-category">Palm Oil</span>
+                                <h3 class="cart-item-name">Premium Red Palm Oil (1L)</h3>
+                                <p class="cart-item-size">Size: <strong>1L</strong></p>
+                            </div>
+                            <button class="cart-item-remove" type="button"
+                                aria-label="Remove Premium Red Palm Oil from cart">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <div class="cart-item-bottom">
+                            <div class="qty-stepper">
+                                <button class="qty-btn qty-minus" type="button"
+                                    aria-label="Decrease quantity">−</button>
+                                <span class="qty-value">2</span>
+                                <button class="qty-btn qty-plus" type="button" aria-label="Increase quantity">+</button>
+                            </div>
+                            <div class="cart-item-price">
+                                <span class="price-main">₦9,000</span>
+                                <span class="price-each">₦4,500 each</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-item-card" data-unit-price="4500" data-qty="1">
+                    <div class="cart-item-thumb thumb-b">
+                        <img src="./images/palm-oil-2.jpg" alt="Premium Red Palm Oil, 1 litre bottle">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-top">
+                            <div>
+                                <span class="cart-item-category">Palm Oil</span>
+                                <h3 class="cart-item-name">Premium Red Palm Oil (1L)</h3>
+                                <p class="cart-item-size">Size: <strong>1L</strong></p>
+                            </div>
+                            <button class="cart-item-remove" type="button"
+                                aria-label="Remove Premium Red Palm Oil from cart">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <div class="cart-item-bottom">
+                            <div class="qty-stepper">
+                                <button class="qty-btn qty-minus" type="button"
+                                    aria-label="Decrease quantity">−</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-btn qty-plus" type="button" aria-label="Increase quantity">+</button>
+                            </div>
+                            <div class="cart-item-price">
+                                <span class="price-main">₦4,500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Order summary -->
+            <aside class="cart-summary">
+                <div class="cart-summary-card">
+                    <h2 class="summary-title">Order Summary</h2>
+
+                    <div class="summary-lines" id="summaryLines">
+                        <div class="summary-line-item">
+                            <img src="./images/palm-oil-1.jpg" class="summary-thumb" alt="">
+                            <div class="summary-line-details">
+                                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
+                                <p class="summary-line-meta">1L · qty 2</p>
+                            </div>
+                            <span class="summary-line-price">₦9,000</span>
+                        </div>
+                        <div class="summary-line-item">
+                            <img src="./images/palm-oil-2.jpg" class="summary-thumb" alt="">
+                            <div class="summary-line-details">
+                                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
+                                <p class="summary-line-meta">1L · qty 1</p>
+                            </div>
+                            <span class="summary-line-price">₦4,500</span>
+                        </div>
+                    </div>
+
+                    <hr class="summary-divider">
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="summarySubtotal">₦13,500</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span class="summary-free">Free</span>
+                    </div>
+
+                    <hr class="summary-divider">
+
+                    <div class="summary-row summary-total">
+                        <span>Total</span>
+                        <span id="summaryTotal">₦13,500</span>
+                    </div>
+                </div>
+
+                <button class="btn-checkout" type="button">
+                    <span>Proceed to Checkout</span>
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+                <a href="/shop" class="btn-continue">Continue Shopping</a>
+
+                <div class="cart-trust-row">
+                    <span><i class="bi bi-lock-fill"></i> Secure</span>
+                    <span><i class="bi bi-arrow-repeat"></i> Easy returns</span>
+                    <span><i class="bi bi-patch-check-fill"></i> Trusted</span>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script>
+    (function () {
+        const naira = (n) => '₦' + n.toLocaleString('en-NG');
+
+        function recalc() {
+            let subtotal = 0;
+            document.querySelectorAll('.cart-item-card').forEach(card => {
+                const unit = Number(card.dataset.unitPrice);
+                const qty = Number(card.dataset.qty);
+                subtotal += unit * qty;
+            });
+            document.getElementById('summarySubtotal').textContent = naira(subtotal);
+            document.getElementById('summaryTotal').textContent = naira(subtotal);
+            const totalItems = [...document.querySelectorAll('.cart-item-card')]
+                .reduce((sum, c) => sum + Number(c.dataset.qty), 0);
+            document.getElementById('cartItemCount').textContent =
+                totalItems + (totalItems === 1 ? ' item' : ' items');
+        }
+
+        document.getElementById('cartItems').addEventListener('click', (e) => {
+            const card = e.target.closest('.cart-item-card');
+            if (!card) return;
+
+            if (e.target.closest('.qty-plus') || e.target.closest('.qty-minus')) {
+                let qty = Number(card.dataset.qty);
+                qty = e.target.closest('.qty-plus') ? qty + 1 : Math.max(1, qty - 1);
+                card.dataset.qty = qty;
+                card.querySelector('.qty-value').textContent = qty;
+                const unit = Number(card.dataset.unitPrice);
+                card.querySelector('.price-main').textContent = naira(unit * qty);
+                recalc();
+            }
+
+            if (e.target.closest('.cart-item-remove')) {
+                card.remove();
+                recalc();
+            }
+        });
+    })();
+</script>
+{% endblock %}

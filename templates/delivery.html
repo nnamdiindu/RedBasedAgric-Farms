@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', path='css/checkout.css')}}">
+<link rel="stylesheet" href="{{url_for('static', path='css/delivery.css')}}">
+{% endblock %}
+{% block content %}
+<section class="checkout-section">
+  <div class="checkout-inner">
+
+    <!-- Header -->
+    <div class="checkout-header">
+      <a href="/cart" class="checkout-back-link">
+        <i class="bi bi-arrow-left"></i>
+        <span>Back to Cart</span>
+      </a>
+      <h1 class="checkout-title">Checkout</h1>
+    </div>
+
+    <!-- Step indicator -->
+    <ol class="checkout-steps">
+      <li class="step-item is-complete">
+        <span class="step-circle"><i class="bi bi-check-lg"></i></span>
+        <span class="step-label">Shipping</span>
+      </li>
+      <li class="step-connector is-complete"></li>
+      <li class="step-item is-active">
+        <span class="step-circle">2</span>
+        <span class="step-label">Delivery</span>
+      </li>
+      <li class="step-connector"></li>
+      <li class="step-item">
+        <span class="step-circle">3</span>
+        <span class="step-label">Payment</span>
+      </li>
+      <li class="step-connector"></li>
+      <li class="step-item">
+        <span class="step-circle">4</span>
+        <span class="step-label">Confirm</span>
+      </li>
+    </ol>
+
+    <div class="checkout-layout">
+
+      <!-- Delivery method form -->
+      <div class="checkout-form-card">
+        <h2 class="form-card-title">Delivery Method</h2>
+        <p class="form-card-subtitle">Choose how you'd like to receive your order</p>
+
+        <form class="delivery-form">
+
+          <label class="delivery-option is-selected">
+            <input type="radio" name="deliveryMethod" value="standard" checked>
+            <span class="delivery-icon-box">
+              <i class="bi bi-truck"></i>
+            </span>
+            <span class="delivery-info">
+              <span class="delivery-title-row">
+                <span class="delivery-name">Standard Delivery</span>
+                <span class="delivery-badge badge-accent">Free shipping!</span>
+              </span>
+              <span class="delivery-meta">2–4 business days. All 36 states</span>
+            </span>
+            <span class="delivery-price-row">
+              <span class="delivery-price price-free">Free</span>
+              <span class="delivery-radio"></span>
+            </span>
+          </label>
+
+          <label class="delivery-option">
+            <input type="radio" name="deliveryMethod" value="express">
+            <span class="delivery-icon-box">
+              <i class="bi bi-bicycle"></i>
+            </span>
+            <span class="delivery-info">
+              <span class="delivery-title-row">
+                <span class="delivery-name">Express Delivery</span>
+                <span class="delivery-badge badge-neutral">Fastest</span>
+              </span>
+              <span class="delivery-meta">Next day. Lagos, Abuja, PH</span>
+            </span>
+            <span class="delivery-price-row">
+              <span class="delivery-price">₦3,500</span>
+              <span class="delivery-radio"></span>
+            </span>
+          </label>
+
+          <label class="delivery-option">
+            <input type="radio" name="deliveryMethod" value="pickup">
+            <span class="delivery-icon-box">
+              <i class="bi bi-box-seam"></i>
+            </span>
+            <span class="delivery-info">
+              <span class="delivery-title-row">
+                <span class="delivery-name">Farm Pickup</span>
+                <span class="delivery-badge badge-neutral">No delivery fee</span>
+              </span>
+              <span class="delivery-meta">Collect from Makurdi depot</span>
+            </span>
+            <span class="delivery-price-row">
+              <span class="delivery-price price-free">Free</span>
+              <span class="delivery-radio"></span>
+            </span>
+          </label>
+
+          <button type="submit" class="btn-continue-step">
+            <span>Continue to Payment</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Order summary + shipping-to -->
+      <aside class="checkout-summary">
+        <div class="checkout-summary-card">
+          <h2 class="summary-title">Order Summary</h2>
+
+          <div class="summary-lines">
+            <div class="summary-line-item">
+              <img src="./images/palm-oil-1.jpg" class="summary-thumb" alt="">
+              <div class="summary-line-details">
+                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
+                <p class="summary-line-meta">1L · qty 2</p>
+              </div>
+              <span class="summary-line-price">₦9,000</span>
+            </div>
+            <div class="summary-line-item">
+              <img src="./images/palm-oil-2.jpg" class="summary-thumb" alt="">
+              <div class="summary-line-details">
+                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
+                <p class="summary-line-meta">1L · qty 1</p>
+              </div>
+              <span class="summary-line-price">₦4,500</span>
+            </div>
+          </div>
+
+          <hr class="summary-divider">
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>₦13,500</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span class="summary-free">Free</span>
+          </div>
+
+          <hr class="summary-divider">
+
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <span>₦13,500</span>
+          </div>
+        </div>
+
+        <div class="shipping-to-card">
+          <div class="shipping-to-header">
+            <span>Shipping To</span>
+            <a href="#" class="shipping-to-edit">Edit</a>
+          </div>
+          <p class="shipping-to-name">Billy Kimber</p>
+          <p class="shipping-to-address">
+            No 12 Banana Island, Lagos<br>
+            Ikeja, Lagos
+          </p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', path='css/order_confirmation.css')}}">
+{% endblock %}
+{% block content %}
+<div class="confirmation-page">
+  <div class="confirmation-inner">
+
+    <div class="confirmation-badge" aria-hidden="true">
+      <i class="bi bi-check2-all"></i>
+    </div>
+
+    <p class="confirmation-eyebrow">Payment Confirmed</p>
+    <h1 class="confirmation-heading">Your order is on its way!</h1>
+
+    <p class="confirmation-subtext">
+      Thank you <strong>{{ customer_first_name|default('Billy') }}</strong>. We're packing your fresh produce right now
+    </p>
+
+    <div class="confirmation-card">
+      <div class="confirmation-card-header">
+        <span class="confirmation-card-label">Order Reference</span>
+        <span class="confirmation-card-code">{{ order_reference|default('RBA-31F3YB-4759') }}</span>
+      </div>
+
+      <div class="confirmation-card-body">
+        <div class="confirmation-card-row">
+          <span class="confirmation-card-row-label">Delivery To</span>
+          <span class="confirmation-card-row-value">{{ delivery_line1|default('No 12 Banana Island,') }}<br>{{ delivery_line2|default('Ikeja, Lagos') }}</span>
+        </div>
+        <div class="confirmation-card-row">
+          <span class="confirmation-card-row-label">Estimated Arrival</span>
+          <span class="confirmation-card-row-value">{{ eta_display|default('2-4 business days') }}</span>
+        </div>
+        <div class="confirmation-card-row">
+          <span class="confirmation-card-row-label">Order Total</span>
+          <span class="confirmation-card-row-value">{{ order_total_display|default('₦13,500') }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="confirmation-actions">
+      <a href="{{ continue_shopping_url|default('/shop') }}" class="btn-confirm-primary">
+        <span>Continue Shopping</span>
+        <i class="bi bi-arrow-right"></i>
+      </a>
+      <a href="{{ home_url|default('/') }}" class="btn-confirm-secondary">
+        <span>Back Home</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
