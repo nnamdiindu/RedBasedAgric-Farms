@@ -157,6 +157,12 @@
     color: var(--color-text, #222222);
 }
 
+.field-error {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--color-error, #C03928);
+}
+
 .form-field input,
 .form-field select {
     width: 100%;

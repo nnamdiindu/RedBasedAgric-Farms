@@ -114,6 +114,19 @@
   background: var(--color-accent);
 }
 
+.payment-error-banner {
+  background: var(--color-error-100, #FBEAE7);
+  color: var(--color-error, #C03928);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* --- Cards --- */
 .payment-card,
 .order-summary-card,

@@ -46,61 +46,30 @@
         <h2 class="form-card-title">Delivery Method</h2>
         <p class="form-card-subtitle">Choose how you'd like to receive your order</p>
 
-        <form class="delivery-form">
+        <form class="delivery-form" method="post" action="/delivery">
 
-          <label class="delivery-option is-selected">
-            <input type="radio" name="deliveryMethod" value="standard" checked>
-            <span class="delivery-icon-box">
-              <i class="bi bi-truck"></i>
-            </span>
-            <span class="delivery-info">
-              <span class="delivery-title-row">
-                <span class="delivery-name">Standard Delivery</span>
-                <span class="delivery-badge badge-accent">Free shipping!</span>
-              </span>
-              <span class="delivery-meta">2–4 business days. All 36 states</span>
-            </span>
-            <span class="delivery-price-row">
-              <span class="delivery-price price-free">Free</span>
-              <span class="delivery-radio"></span>
-            </span>
-          </label>
-
+          {% for method_key, method in delivery_methods.items() %}
           <label class="delivery-option">
-            <input type="radio" name="deliveryMethod" value="express">
+            <input type="radio" name="delivery_method" value="{{ method_key }}"
+                {{ 'checked' if selected_method == method_key }}>
             <span class="delivery-icon-box">
-              <i class="bi bi-bicycle"></i>
+              <i class="bi {{ method.icon }}"></i>
             </span>
             <span class="delivery-info">
               <span class="delivery-title-row">
-                <span class="delivery-name">Express Delivery</span>
-                <span class="delivery-badge badge-neutral">Fastest</span>
+                <span class="delivery-name">{{ method.label }}</span>
+                <span class="delivery-badge {{ method.badge_class }}">{{ method.badge }}</span>
               </span>
-              <span class="delivery-meta">Next day. Lagos, Abuja, PH</span>
+              <span class="delivery-meta">{{ method.meta }}</span>
             </span>
             <span class="delivery-price-row">
-              <span class="delivery-price">₦3,500</span>
+              <span class="delivery-price{{ ' price-free' if method.fee == 0 }}">
+                {{ method.fee_display }}
+              </span>
               <span class="delivery-radio"></span>
             </span>
           </label>
-
-          <label class="delivery-option">
-            <input type="radio" name="deliveryMethod" value="pickup">
-            <span class="delivery-icon-box">
-              <i class="bi bi-box-seam"></i>
-            </span>
-            <span class="delivery-info">
-              <span class="delivery-title-row">
-                <span class="delivery-name">Farm Pickup</span>
-                <span class="delivery-badge badge-neutral">No delivery fee</span>
-              </span>
-              <span class="delivery-meta">Collect from Makurdi depot</span>
-            </span>
-            <span class="delivery-price-row">
-              <span class="delivery-price price-free">Free</span>
-              <span class="delivery-radio"></span>
-            </span>
-          </label>
+          {% endfor %}
 
           <button type="submit" class="btn-continue-step">
             <span>Continue to Payment</span>
@@ -115,52 +84,50 @@
           <h2 class="summary-title">Order Summary</h2>
 
           <div class="summary-lines">
+            {% for line in lines %}
             <div class="summary-line-item">
-              <img src="./images/palm-oil-1.jpg" class="summary-thumb" alt="">
+              <img src="{{ url_for('static', path=line.image) }}" class="summary-thumb" alt="">
               <div class="summary-line-details">
-                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
-                <p class="summary-line-meta">1L · qty 2</p>
+                <p class="summary-line-name">{{ line.product_name }}</p>
+                <p class="summary-line-meta">{{ line.size_label }} &middot; qty {{ line.qty }}</p>
               </div>
-              <span class="summary-line-price">₦9,000</span>
+              <span class="summary-line-price">{{ line.line_total_display }}</span>
             </div>
-            <div class="summary-line-item">
-              <img src="./images/palm-oil-2.jpg" class="summary-thumb" alt="">
-              <div class="summary-line-details">
-                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
-                <p class="summary-line-meta">1L · qty 1</p>
-              </div>
-              <span class="summary-line-price">₦4,500</span>
-            </div>
+            {% endfor %}
           </div>
 
           <hr class="summary-divider">
 
           <div class="summary-row">
             <span>Subtotal</span>
-            <span>₦13,500</span>
+            <span>{{ subtotal_display }}</span>
           </div>
           <div class="summary-row">
             <span>Shipping</span>
+            {% if has_delivery_fee %}
+            <span>{{ delivery_fee_display }}</span>
+            {% else %}
             <span class="summary-free">Free</span>
+            {% endif %}
           </div>
 
           <hr class="summary-divider">
 
           <div class="summary-row summary-total">
             <span>Total</span>
-            <span>₦13,500</span>
+            <span>{{ total_display }}</span>
           </div>
         </div>
 
         <div class="shipping-to-card">
           <div class="shipping-to-header">
             <span>Shipping To</span>
-            <a href="#" class="shipping-to-edit">Edit</a>
+            <a href="/checkout" class="shipping-to-edit">Edit</a>
           </div>
-          <p class="shipping-to-name">Billy Kimber</p>
+          <p class="shipping-to-name">{{ shipping.first_name }} {{ shipping.last_name }}</p>
           <p class="shipping-to-address">
-            No 12 Banana Island, Lagos<br>
-            Ikeja, Lagos
+            {{ shipping.address1 }}{{ ', ' + shipping.address2 if shipping.address2 }}<br>
+            {{ shipping.city }}, {{ shipping.state }}
           </p>
         </div>
       </aside>

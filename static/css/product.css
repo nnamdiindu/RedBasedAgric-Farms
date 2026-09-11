@@ -164,6 +164,16 @@
 .pdp-icon-btn:hover {
   background: var(--color-primary-100);
 }
+.pdp-icon-btn:focus-visible,
+.pdp-thumb:focus-visible,
+.pdp-size-btn:focus-visible,
+.pdp-qty-btn:focus-visible,
+.pdp-tab:focus-visible,
+.pdp-add-btn:focus-visible,
+.pdp-back:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
  
 .pdp-title {
   font-size: 1.9rem;
@@ -207,6 +217,10 @@
   height: 6px;
   border-radius: 50%;
   background: var(--color-success);
+}
+.pdp-stock-out {
+  color: #9CA3AF;
+  background: #F1F1EF;
 }
  
 .pdp-price {
@@ -285,6 +299,10 @@
   border-color: var(--color-primary);
   color: #fff;
 }
+.pdp-size-btn-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
  
 .pdp-quantity {
   margin-bottom: 1.75rem;
@@ -334,6 +352,10 @@
 }
 .pdp-add-btn:hover {
   background: var(--color-primary-700);
+}
+.pdp-add-btn:disabled {
+  background: #D1D5DB;
+  cursor: not-allowed;
 }
  
 .pdp-perks {

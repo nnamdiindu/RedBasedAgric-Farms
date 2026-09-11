@@ -1,17 +1,28 @@
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker
-# from sqlalchemy.ext.declarative import declarative_base
-#
-#
-# # SQLALCHEMY_DATABASE_URI = "postgresql://postgres:Goodboylucky123@localhost/TodoApplicationDatabase"
-# SQLALCHEMY_DATABASE_URI = "sqlite:///./redbasedagric.db"
-#
-# # engine = create_engine(SQLALCHEMY_DATABASE_URI)
-# engine = create_engine(SQLALCHEMY_DATABASE_URI, connect_args={"check_same_thread": False})
-#
-# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-#
-# Base = declarative_base()
-#
-#
-#
+import os
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
+
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./redbasedagric.db")
+
+connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
+engine = create_engine(DATABASE_URL, connect_args=connect_args)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+def init_db():
+    import models.order  # noqa: F401
+    import models.product  # noqa: F401
+
+    Base.metadata.create_all(bind=engine)

@@ -158,6 +158,7 @@
   font-size: 0.92rem;
   color: var(--color-text);
   cursor: pointer;
+  text-decoration: none;
   transition: background 0.15s ease;
 }
  
@@ -301,6 +302,59 @@
 }
 .shop-reset-btn:hover {
   background: var(--color-primary-700);
+}
+
+.shop-clear-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 0.6rem;
+  padding: 0.65rem;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  margin-top: 0.75rem;
+  transition: background 0.15s ease;
+}
+.shop-clear-btn:hover {
+  background: var(--color-primary-100);
+}
+
+.shop-empty {
+  color: #6B7280;
+  font-size: 0.95rem;
+  padding: 2rem 0;
+}
+
+.product-stock-out {
+  color: #9CA3AF;
+  background: #F1F1EF;
+}
+
+.product-name-link {
+  color: inherit;
+  text-decoration: none;
+}
+.product-name-link:hover {
+  text-decoration: underline;
+}
+
+.product-media-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.product-media-link:focus-visible,
+.product-name-link:focus-visible,
+.product-add:focus-visible,
+.product-wishlist:focus-visible,
+.shop-page-btn:focus-visible,
+.shop-clear-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
  
 /* ===========================
@@ -463,10 +517,12 @@
   font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
+  text-decoration: none;
   transition: background 0.15s ease;
 }
 .product-add:hover {
   background: var(--color-primary-700);
+  color: #fff;
 }
  
 /* ===========================
@@ -504,6 +560,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  text-decoration: none;
 }
 .shop-page-btn.active {
   background: var(--color-primary);

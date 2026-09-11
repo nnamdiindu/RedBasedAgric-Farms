@@ -2,6 +2,10 @@
 instance
 redbasedfarmenv
 
+# Local SQLite database
+*.db
+*.db-journal
+
 # OS files
 .DS_Store
 Thumbs.db

@@ -45,29 +45,37 @@
                 <h2 class="form-card-title">Shipping Details</h2>
                 <p class="form-card-subtitle">Where should we deliver your order?</p>
 
-                <form class="shipping-form" novalidate>
+                <form class="shipping-form" method="post" action="/checkout" novalidate>
                     <div class="form-row two-col">
                         <div class="form-field">
                             <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" placeholder="Billy" required>
+                            <input type="text" id="firstName" name="first_name" placeholder="Billy"
+                                value="{{ shipping_values.first_name or '' }}" required>
+                            {% if shipping_errors.first_name %}<p class="field-error">{{ shipping_errors.first_name }}</p>{% endif %}
                         </div>
                         <div class="form-field">
                             <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" placeholder="Kimber" required>
+                            <input type="text" id="lastName" name="last_name" placeholder="Kimber"
+                                value="{{ shipping_values.last_name or '' }}" required>
+                            {% if shipping_errors.last_name %}<p class="field-error">{{ shipping_errors.last_name }}</p>{% endif %}
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-field">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="billykimber@example.com" required>
+                            <input type="email" id="email" name="email" placeholder="billykimber@example.com"
+                                value="{{ shipping_values.email or '' }}" required>
+                            {% if shipping_errors.email %}<p class="field-error">{{ shipping_errors.email }}</p>{% endif %}
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-field">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="+234 123 456 7890" required>
+                            <input type="tel" id="phone" name="phone" placeholder="+234 123 456 7890"
+                                value="{{ shipping_values.phone or '' }}" required>
+                            {% if shipping_errors.phone %}<p class="field-error">{{ shipping_errors.phone }}</p>{% endif %}
                         </div>
                     </div>
 
@@ -75,36 +83,37 @@
                         <div class="form-field">
                             <label for="address1">Address Line 1</label>
                             <input type="text" id="address1" name="address1" placeholder="12 Banana Island Road"
-                                required>
+                                value="{{ shipping_values.address1 or '' }}" required>
+                            {% if shipping_errors.address1 %}<p class="field-error">{{ shipping_errors.address1 }}</p>{% endif %}
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-field">
                             <label for="address2">Address Line 2 (Optional)</label>
-                            <input type="text" id="address2" name="address2" placeholder="Apartment, suite, estate...">
+                            <input type="text" id="address2" name="address2" placeholder="Apartment, suite, estate..."
+                                value="{{ shipping_values.address2 or '' }}">
                         </div>
                     </div>
 
                     <div class="form-row two-col">
                         <div class="form-field">
                             <label for="city">City</label>
-                            <input type="text" id="city" name="city" placeholder="Lagos" required>
+                            <input type="text" id="city" name="city" placeholder="Lagos"
+                                value="{{ shipping_values.city or '' }}" required>
+                            {% if shipping_errors.city %}<p class="field-error">{{ shipping_errors.city }}</p>{% endif %}
                         </div>
                         <div class="form-field">
                             <label for="state">State</label>
                             <div class="select-wrap">
                                 <select id="state" name="state" required>
-                                    <option value="" disabled selected>Select State</option>
-                                    <option value="abia">Abia</option>
-                                    <option value="lagos">Lagos</option>
-                                    <option value="ogun">Ogun</option>
-                                    <option value="oyo">Oyo</option>
-                                    <option value="rivers">Rivers</option>
-                                    <option value="fct">FCT (Abuja)</option>
-                                    <!-- add remaining states as needed -->
+                                    <option value="" disabled {{ 'selected' if not shipping_values.state }}>Select State</option>
+                                    {% for state in states %}
+                                    <option value="{{ state }}" {{ 'selected' if shipping_values.state == state }}>{{ state }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
+                            {% if shipping_errors.state %}<p class="field-error">{{ shipping_errors.state }}</p>{% endif %}
                         </div>
                     </div>
 
@@ -121,40 +130,34 @@
                     <h2 class="summary-title">Order Summary</h2>
 
                     <div class="summary-lines">
+                        {% for line in lines %}
                         <div class="summary-line-item">
-                            <img src="./images/palm-oil-1.jpg" class="summary-thumb" alt="">
+                            <img src="{{ url_for('static', path=line.image) }}" class="summary-thumb" alt="">
                             <div class="summary-line-details">
-                                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
-                                <p class="summary-line-meta">1L · qty 2</p>
+                                <p class="summary-line-name">{{ line.product_name }}</p>
+                                <p class="summary-line-meta">{{ line.size_label }} &middot; qty {{ line.qty }}</p>
                             </div>
-                            <span class="summary-line-price">₦9,000</span>
+                            <span class="summary-line-price">{{ line.line_total_display }}</span>
                         </div>
-                        <div class="summary-line-item">
-                            <img src="./images/palm-oil-2.jpg" class="summary-thumb" alt="">
-                            <div class="summary-line-details">
-                                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
-                                <p class="summary-line-meta">1L · qty 1</p>
-                            </div>
-                            <span class="summary-line-price">₦4,500</span>
-                        </div>
+                        {% endfor %}
                     </div>
 
                     <hr class="summary-divider">
 
                     <div class="summary-row">
                         <span>Subtotal</span>
-                        <span>₦13,500</span>
+                        <span>{{ subtotal_display }}</span>
                     </div>
                     <div class="summary-row">
                         <span>Shipping</span>
-                        <span class="summary-free">Free</span>
+                        <span>Calculated at delivery step</span>
                     </div>
 
                     <hr class="summary-divider">
 
                     <div class="summary-row summary-total">
                         <span>Total</span>
-                        <span>₦13,500</span>
+                        <span>{{ subtotal_display }}</span>
                     </div>
                 </div>
             </aside>

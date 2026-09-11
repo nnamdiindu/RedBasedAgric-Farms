@@ -14,81 +14,65 @@
             </a>
             <div class="cart-title-group">
                 <h1 class="cart-title">Your Cart</h1>
-                <span class="cart-badge" id="cartItemCount">3 items</span>
+                <span class="cart-badge">{{ item_count }} item{{ '' if item_count == 1 else 's' }}</span>
             </div>
         </div>
 
-        <!-- Free shipping banner -->
+        {% if lines %}
+
+        {% if qualifies_free_shipping %}
         <div class="cart-shipping-banner">
             <i class="bi bi-check-circle-fill"></i>
             <p>🎉 You qualify for <strong>free shipping!</strong></p>
         </div>
+        {% endif %}
 
         <div class="cart-layout">
 
             <!-- Cart items -->
-            <div class="cart-items" id="cartItems">
+            <div class="cart-items">
 
-                <div class="cart-item-card" data-unit-price="4500" data-qty="2">
-                    <div class="cart-item-thumb thumb-a">
-                        <img src="./images/palm-oil-1.jpg" alt="Premium Red Palm Oil, 1 litre bottle">
+                {% for line in lines %}
+                <div class="cart-item-card">
+                    <div class="cart-item-thumb">
+                        <img src="{{ url_for('static', path=line.image) }}" alt="{{ line.product_name }}">
                     </div>
                     <div class="cart-item-details">
                         <div class="cart-item-top">
                             <div>
-                                <span class="cart-item-category">Palm Oil</span>
-                                <h3 class="cart-item-name">Premium Red Palm Oil (1L)</h3>
-                                <p class="cart-item-size">Size: <strong>1L</strong></p>
+                                <span class="cart-item-category">{{ line.category }}</span>
+                                <h3 class="cart-item-name">
+                                    <a href="/product/{{ line.product_slug }}" class="cart-item-name-link">{{ line.product_name }}</a>
+                                </h3>
+                                <p class="cart-item-size">Size: <strong>{{ line.size_label }}</strong></p>
                             </div>
-                            <button class="cart-item-remove" type="button"
-                                aria-label="Remove Premium Red Palm Oil from cart">
-                                <i class="bi bi-trash"></i>
-                            </button>
+                            <form method="post" action="/cart/remove">
+                                <input type="hidden" name="variant_id" value="{{ line.variant_id }}">
+                                <button class="cart-item-remove" type="submit"
+                                    aria-label="Remove {{ line.product_name }} from cart">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
                         </div>
                         <div class="cart-item-bottom">
-                            <div class="qty-stepper">
-                                <button class="qty-btn qty-minus" type="button"
-                                    aria-label="Decrease quantity">−</button>
-                                <span class="qty-value">2</span>
-                                <button class="qty-btn qty-plus" type="button" aria-label="Increase quantity">+</button>
-                            </div>
+                            <form method="post" action="/cart/update" class="qty-stepper">
+                                <input type="hidden" name="variant_id" value="{{ line.variant_id }}">
+                                <button class="qty-btn qty-minus" type="submit" name="qty" value="{{ line.qty - 1 }}"
+                                    aria-label="Decrease quantity" {{ 'disabled' if line.qty <= 1 }}>&minus;</button>
+                                <span class="qty-value">{{ line.qty }}</span>
+                                <button class="qty-btn qty-plus" type="submit" name="qty" value="{{ line.qty + 1 }}"
+                                    aria-label="Increase quantity">+</button>
+                            </form>
                             <div class="cart-item-price">
-                                <span class="price-main">₦9,000</span>
-                                <span class="price-each">₦4,500 each</span>
+                                <span class="price-main">{{ line.line_total_display }}</span>
+                                {% if line.qty > 1 %}
+                                <span class="price-each">{{ line.unit_price_display }} each</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="cart-item-card" data-unit-price="4500" data-qty="1">
-                    <div class="cart-item-thumb thumb-b">
-                        <img src="./images/palm-oil-2.jpg" alt="Premium Red Palm Oil, 1 litre bottle">
-                    </div>
-                    <div class="cart-item-details">
-                        <div class="cart-item-top">
-                            <div>
-                                <span class="cart-item-category">Palm Oil</span>
-                                <h3 class="cart-item-name">Premium Red Palm Oil (1L)</h3>
-                                <p class="cart-item-size">Size: <strong>1L</strong></p>
-                            </div>
-                            <button class="cart-item-remove" type="button"
-                                aria-label="Remove Premium Red Palm Oil from cart">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
-                        <div class="cart-item-bottom">
-                            <div class="qty-stepper">
-                                <button class="qty-btn qty-minus" type="button"
-                                    aria-label="Decrease quantity">−</button>
-                                <span class="qty-value">1</span>
-                                <button class="qty-btn qty-plus" type="button" aria-label="Increase quantity">+</button>
-                            </div>
-                            <div class="cart-item-price">
-                                <span class="price-main">₦4,500</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
 
             </div>
 
@@ -97,48 +81,46 @@
                 <div class="cart-summary-card">
                     <h2 class="summary-title">Order Summary</h2>
 
-                    <div class="summary-lines" id="summaryLines">
+                    <div class="summary-lines">
+                        {% for line in lines %}
                         <div class="summary-line-item">
-                            <img src="./images/palm-oil-1.jpg" class="summary-thumb" alt="">
+                            <img src="{{ url_for('static', path=line.image) }}" class="summary-thumb" alt="">
                             <div class="summary-line-details">
-                                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
-                                <p class="summary-line-meta">1L · qty 2</p>
+                                <p class="summary-line-name">{{ line.product_name }}</p>
+                                <p class="summary-line-meta">{{ line.size_label }} &middot; qty {{ line.qty }}</p>
                             </div>
-                            <span class="summary-line-price">₦9,000</span>
+                            <span class="summary-line-price">{{ line.line_total_display }}</span>
                         </div>
-                        <div class="summary-line-item">
-                            <img src="./images/palm-oil-2.jpg" class="summary-thumb" alt="">
-                            <div class="summary-line-details">
-                                <p class="summary-line-name">Premium Red Palm Oil (1L)</p>
-                                <p class="summary-line-meta">1L · qty 1</p>
-                            </div>
-                            <span class="summary-line-price">₦4,500</span>
-                        </div>
+                        {% endfor %}
                     </div>
 
                     <hr class="summary-divider">
 
                     <div class="summary-row">
                         <span>Subtotal</span>
-                        <span id="summarySubtotal">₦13,500</span>
+                        <span>{{ subtotal_display }}</span>
                     </div>
                     <div class="summary-row">
                         <span>Shipping</span>
+                        {% if qualifies_free_shipping %}
                         <span class="summary-free">Free</span>
+                        {% else %}
+                        <span>Calculated at checkout</span>
+                        {% endif %}
                     </div>
 
                     <hr class="summary-divider">
 
                     <div class="summary-row summary-total">
                         <span>Total</span>
-                        <span id="summaryTotal">₦13,500</span>
+                        <span>{{ total_display }}</span>
                     </div>
                 </div>
 
-                <button class="btn-checkout" type="button">
+                <a href="/checkout" class="btn-checkout">
                     <span>Proceed to Checkout</span>
                     <i class="bi bi-arrow-right"></i>
-                </button>
+                </a>
                 <a href="/shop" class="btn-continue">Continue Shopping</a>
 
                 <div class="cart-trust-row">
@@ -149,49 +131,15 @@
             </aside>
 
         </div>
+
+        {% else %}
+        <div class="cart-empty">
+            <i class="bi bi-cart-x"></i>
+            <p>Your cart is empty.</p>
+            <a href="/shop" class="btn-continue">Start Shopping</a>
+        </div>
+        {% endif %}
+
     </div>
 </section>
-{% endblock %}
-
-{% block script %}
-<script>
-    (function () {
-        const naira = (n) => '₦' + n.toLocaleString('en-NG');
-
-        function recalc() {
-            let subtotal = 0;
-            document.querySelectorAll('.cart-item-card').forEach(card => {
-                const unit = Number(card.dataset.unitPrice);
-                const qty = Number(card.dataset.qty);
-                subtotal += unit * qty;
-            });
-            document.getElementById('summarySubtotal').textContent = naira(subtotal);
-            document.getElementById('summaryTotal').textContent = naira(subtotal);
-            const totalItems = [...document.querySelectorAll('.cart-item-card')]
-                .reduce((sum, c) => sum + Number(c.dataset.qty), 0);
-            document.getElementById('cartItemCount').textContent =
-                totalItems + (totalItems === 1 ? ' item' : ' items');
-        }
-
-        document.getElementById('cartItems').addEventListener('click', (e) => {
-            const card = e.target.closest('.cart-item-card');
-            if (!card) return;
-
-            if (e.target.closest('.qty-plus') || e.target.closest('.qty-minus')) {
-                let qty = Number(card.dataset.qty);
-                qty = e.target.closest('.qty-plus') ? qty + 1 : Math.max(1, qty - 1);
-                card.dataset.qty = qty;
-                card.querySelector('.qty-value').textContent = qty;
-                const unit = Number(card.dataset.unitPrice);
-                card.querySelector('.price-main').textContent = naira(unit * qty);
-                recalc();
-            }
-
-            if (e.target.closest('.cart-item-remove')) {
-                card.remove();
-                recalc();
-            }
-        });
-    })();
-</script>
 {% endblock %}

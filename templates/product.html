@@ -13,22 +13,15 @@
 
         <!-- Gallery -->
         <div class="pdp-gallery">
-            <div class="pdp-thumbs">
-                <button type="button" class="pdp-thumb active">
-                    <img src="./images/products/palm-oil-jerrycans.jpg" alt="Palm oil jerrycans">
+            <div class="pdp-thumbs" id="pdpThumbs">
+                {% for image in gallery %}
+                <button type="button" class="pdp-thumb{{ ' active' if loop.first }}">
+                    <img src="{{ url_for('static', path=image) }}" alt="{{ product.name }} view {{ loop.index }}">
                 </button>
-                <button type="button" class="pdp-thumb">
-                    <img src="./images/products/kings-oil-1.jpg" alt="King's oil product shot">
-                </button>
-                <button type="button" class="pdp-thumb">
-                    <img src="./images/products/oil-bottles.jpg" alt="Oil bottles">
-                </button>
-                <button type="button" class="pdp-thumb">
-                    <img src="./images/products/kings-oil-2.jpg" alt="King's oil product shot">
-                </button>
+                {% endfor %}
             </div>
             <div class="pdp-main-image">
-                <img src="./images/products/palm-oil-jerrycans-large.jpg" alt="Premium Red Palm Oil jerrycans">
+                <img src="{{ url_for('static', path=gallery[0]) }}" alt="{{ product.name }}" id="pdpMainImage">
             </div>
         </div>
 
@@ -37,8 +30,10 @@
 
             <div class="pdp-badges-row">
                 <div class="pdp-badges">
-                    <span class="pdp-badge-best-seller">Best Seller</span>
-                    <span class="pdp-category">Palm Oil</span>
+                    {% if product.badge %}
+                    <span class="pdp-badge-best-seller">{{ product.badge }}</span>
+                    {% endif %}
+                    <span class="pdp-category">{{ product.category }}</span>
                 </div>
                 <div class="pdp-icon-actions">
                     <button type="button" class="pdp-icon-btn" aria-label="Add to wishlist"><i
@@ -48,16 +43,20 @@
                 </div>
             </div>
 
-            <h1 class="pdp-title">Premium Red Palm Oil (1L)</h1>
+            <h1 class="pdp-title">{{ product.name }}</h1>
 
             <div class="pdp-rating-row">
                 <span class="stars">★★★★★</span>
-                <span class="pdp-rating-score">4.9</span>
-                <a href="#reviews" class="pdp-reviews-link">218 reviews</a>
+                <span class="pdp-rating-score">{{ product.rating_score }}</span>
+                <a href="#reviews" class="pdp-reviews-link">{{ product.rating_count }} reviews</a>
+                {% if product.in_stock %}
                 <span class="pdp-stock"><span class="dot"></span> In Stock</span>
+                {% else %}
+                <span class="pdp-stock pdp-stock-out">Out of Stock</span>
+                {% endif %}
             </div>
 
-            <div class="pdp-price">₦4,500</div>
+            <div class="pdp-price">{{ price_display }}</div>
 
             <div class="pdp-meta-row">
                 <div class="pdp-meta-item">
@@ -76,13 +75,23 @@
                 </div>
             </div>
 
+            <form method="post" action="/cart/add" id="pdpAddToCartForm">
+            <input type="hidden" name="variant_id" id="pdpVariantId" value="{{ variants[0].id if variants }}">
+            <input type="hidden" name="qty" id="pdpQty" value="1">
+
+            {% if variants|length > 1 %}
             <div class="pdp-section-label">SELECT SIZE</div>
             <div class="pdp-size-options">
-                <button type="button" class="pdp-size-btn">500ml</button>
-                <button type="button" class="pdp-size-btn active">1L</button>
-                <button type="button" class="pdp-size-btn">2L</button>
-                <button type="button" class="pdp-size-btn">5L</button>
+                {% for variant in variants %}
+                <button type="button" class="pdp-size-btn{{ ' active' if loop.first }}{{ ' pdp-size-btn-disabled' if not variant.in_stock }}"
+                        data-variant-id="{{ variant.id }}" data-price-display="{{ variant.price_display }}"
+                        data-images='{{ variant.images_json }}'
+                        {{ 'disabled' if not variant.in_stock }}>
+                    {{ variant.size_label }}
+                </button>
+                {% endfor %}
             </div>
+            {% endif %}
 
             <div class="pdp-section-label">QUANTITY</div>
             <div class="pdp-quantity">
@@ -93,12 +102,13 @@
                 </div>
             </div>
 
-            <button type="button" class="pdp-add-btn"><i class="bi bi-cart3"></i> Add to Cart</button>
+            <button type="submit" class="pdp-add-btn"{{ ' disabled' if not product.in_stock }}><i class="bi bi-cart3"></i> Add to Cart</button>
+            </form>
 
             <div class="pdp-perks">
                 <div class="pdp-perk"><i class="bi bi-truck"></i> Free delivery on orders over ₦10,000</div>
                 <div class="pdp-perk"><i class="bi bi-arrow-counterclockwise"></i> 7-day hassle-free returns</div>
-                <div class="pdp-perk"><i class="bi bi-lock-fill"></i> Secure checkout with Paystack &amp; Flutterwave
+                <div class="pdp-perk"><i class="bi bi-lock-fill"></i> Secure checkout with Paystack
                 </div>
                 <div class="pdp-perk"><i class="bi bi-patch-check-fill"></i> 100% farm-direct &middot; No preservatives
                 </div>
@@ -111,71 +121,47 @@
     <div class="pdp-tabs">
         <button type="button" class="pdp-tab active">Description</button>
         <button type="button" class="pdp-tab">Shipping</button>
-        <button type="button" class="pdp-tab" id="reviews">Reviews (5)</button>
+        <button type="button" class="pdp-tab" id="reviews">Reviews ({{ product.rating_count }})</button>
     </div>
 
     <div class="pdp-content-grid">
 
         <div class="pdp-about">
             <h2>About this product</h2>
-            <p>Cold-pressed, unrefined red palm oil with full nutritional profile.</p>
-            <p>Sourced exclusively from our plantation in Benue State, where palms are cultivated without synthetic
-                pesticides or herbicides. We harvest only ripe, hand-selected fresh fruit bunches at peak oil content.
+            <p>{{ product.description }}</p>
+            <p>Sourced exclusively from our plantation in Enugu State, where palms are cultivated without synthetic
+                pesticides or herbicides. We harvest only ripe, hand-selected fresh produce at peak quality.
             </p>
 
+            {% if product.specs %}
             <div class="pdp-specs">
+                {% for label, value in product.specs.items() %}
                 <div>
-                    <div class="pdp-spec-label">Extraction</div>
-                    <div class="pdp-spec-value">Cold-pressed</div>
+                    <div class="pdp-spec-label">{{ label }}</div>
+                    <div class="pdp-spec-value">{{ value }}</div>
                 </div>
-                <div>
-                    <div class="pdp-spec-label">Colour</div>
-                    <div class="pdp-spec-value">Deep red (high β-carotene)</div>
-                </div>
-                <div>
-                    <div class="pdp-spec-label">Shelf Life</div>
-                    <div class="pdp-spec-value">18 months (sealed)</div>
-                </div>
-                <div>
-                    <div class="pdp-spec-label">Certification</div>
-                    <div class="pdp-spec-value">NAFDAC Approved</div>
-                </div>
+                {% endfor %}
             </div>
+            {% endif %}
         </div>
 
+        {% if product.nutrition_facts %}
         <div class="pdp-nutrition">
             <h3>Nutritional highlights</h3>
 
+            {% for nutrient in product.nutrition_facts %}
             <div class="pdp-nutrient">
                 <div class="pdp-nutrient-row">
-                    <span>β-Carotene</span>
-                    <span>~500 ppm</span>
+                    <span>{{ nutrient.label }}</span>
+                    <span>{{ nutrient.value }}</span>
                 </div>
                 <div class="pdp-nutrient-track">
-                    <div class="pdp-nutrient-fill" style="width: 85%;"></div>
+                    <div class="pdp-nutrient-fill" style="width: {{ nutrient.percent }}%;"></div>
                 </div>
             </div>
-
-            <div class="pdp-nutrient">
-                <div class="pdp-nutrient-row">
-                    <span>Vitamin E</span>
-                    <span>~900 ppm</span>
-                </div>
-                <div class="pdp-nutrient-track">
-                    <div class="pdp-nutrient-fill" style="width: 60%;"></div>
-                </div>
-            </div>
-
-            <div class="pdp-nutrient">
-                <div class="pdp-nutrient-row">
-                    <span>Oleic acid (Omega-9)</span>
-                    <span>~40%</span>
-                </div>
-                <div class="pdp-nutrient-track">
-                    <div class="pdp-nutrient-fill" style="width: 40%;"></div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+        {% endif %}
 
     </div>
 
@@ -187,35 +173,66 @@
     // Size selector
     document.querySelectorAll('.pdp-size-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
+            if (btn.disabled) return;
             document.querySelectorAll('.pdp-size-btn').forEach(function (b) { b.classList.remove('active'); });
             btn.classList.add('active');
+            var priceEl = document.querySelector('.pdp-price');
+            if (priceEl && btn.dataset.priceDisplay) { priceEl.textContent = btn.dataset.priceDisplay; }
+            var variantIdEl = document.getElementById('pdpVariantId');
+            if (variantIdEl && btn.dataset.variantId) { variantIdEl.value = btn.dataset.variantId; }
+
+            // Swap gallery to this variant's own photos, if it has any
+            var images = [];
+            try { images = JSON.parse(btn.dataset.images || '[]'); } catch (e) { images = []; }
+            if (images.length) {
+                var mainImg = document.getElementById('pdpMainImage');
+                if (mainImg) { mainImg.src = images[0]; }
+                var thumbs = document.getElementById('pdpThumbs');
+                if (thumbs) {
+                    thumbs.innerHTML = images.map(function (src, index) {
+                        return '<button type="button" class="pdp-thumb' + (index === 0 ? ' active' : '') + '">'
+                            + '<img src="' + src + '" alt="' + btn.textContent.trim() + ' view ' + (index + 1) + '">'
+                            + '</button>';
+                    }).join('');
+                    bindThumbClicks();
+                }
+            }
         });
     });
 
-    // Thumbnail selector
-    document.querySelectorAll('.pdp-thumb').forEach(function (thumb) {
-        thumb.addEventListener('click', function () {
-            document.querySelectorAll('.pdp-thumb').forEach(function (t) { t.classList.remove('active'); });
-            thumb.classList.add('active');
-            var mainImg = document.querySelector('.pdp-main-image img');
-            var thumbImg = thumb.querySelector('img');
-            if (mainImg && thumbImg) { mainImg.src = thumbImg.src; }
+    // Thumbnail selector — re-bound each time the thumbnail list is rebuilt
+    // (size selection replaces #pdpThumbs' contents with that variant's photos)
+    function bindThumbClicks() {
+        document.querySelectorAll('.pdp-thumb').forEach(function (thumb) {
+            thumb.addEventListener('click', function () {
+                document.querySelectorAll('.pdp-thumb').forEach(function (t) { t.classList.remove('active'); });
+                thumb.classList.add('active');
+                var mainImg = document.getElementById('pdpMainImage');
+                var thumbImg = thumb.querySelector('img');
+                if (mainImg && thumbImg) { mainImg.src = thumbImg.src; }
+            });
         });
-    });
+    }
+    bindThumbClicks();
 
     // Quantity stepper
     (function () {
         var qtyEl = document.querySelector('.pdp-qty-value');
+        var hiddenQtyEl = document.getElementById('pdpQty');
         var btns = document.querySelectorAll('.pdp-qty-btn');
         if (!qtyEl || btns.length < 2) return;
         var qty = parseInt(qtyEl.textContent, 10) || 1;
+        function sync() {
+            qtyEl.textContent = qty;
+            if (hiddenQtyEl) { hiddenQtyEl.value = qty; }
+        }
         btns[0].addEventListener('click', function () {
             qty = Math.max(1, qty - 1);
-            qtyEl.textContent = qty;
+            sync();
         });
         btns[1].addEventListener('click', function () {
             qty += 1;
-            qtyEl.textContent = qty;
+            sync();
         });
     })();
 
