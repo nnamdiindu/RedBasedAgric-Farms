@@ -65,6 +65,29 @@
   margin-bottom: 1.75rem;
 }
 
+.contact-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  border-radius: 0.6rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.contact-alert-success {
+  background-color: rgba(45, 106, 79, 0.1);
+  color: var(--color-success);
+  border: 1px solid rgba(45, 106, 79, 0.25);
+}
+
+.contact-alert-error {
+  background-color: rgba(192, 57, 40, 0.1);
+  color: var(--color-error);
+  border: 1px solid rgba(192, 57, 40, 0.25);
+}
+
 .form-label-custom {
   display: block;
   color: #6B7280;

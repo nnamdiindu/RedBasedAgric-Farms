@@ -31,33 +31,45 @@
                     <h2 class="contact-card-title">Send us a message</h2>
                     <p class="contact-card-subtitle">We typically reply within 2 business hours</p>
 
+                    {% if contact_status == "success" %}
+                    <div class="contact-alert contact-alert-success" role="status">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Thanks! Your message has been sent — we'll reply within 2 business hours.
+                    </div>
+                    {% elif contact_status == "error" %}
+                    <div class="contact-alert contact-alert-error" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        {{ contact_error }}
+                    </div>
+                    {% endif %}
+
                     <form class="contact-form" method="post" action="/contact" novalidate>
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label for="contactName" class="form-label-custom">Full Name</label>
                                 <input type="text" id="contactName" name="name" class="contact-input"
-                                    placeholder="Billy Kimber" required>
+                                    placeholder="Billy Kimber" value="{{ contact_values.name or '' }}" required>
                             </div>
                             <div class="col-sm-6">
                                 <label for="contactEmail" class="form-label-custom">Email Address</label>
                                 <input type="email" id="contactEmail" name="email" class="contact-input"
-                                    placeholder="billykimber@example.com" required>
+                                    placeholder="billykimber@example.com" value="{{ contact_values.email or '' }}" required>
                             </div>
                             <div class="col-12">
                                 <label for="contactSubject" class="form-label-custom">Subject</label>
                                 <select id="contactSubject" name="subject" class="contact-input" required>
-                                    <option value="" selected disabled>Select a subject...</option>
-                                    <option value="order">Order inquiry</option>
-                                    <option value="bulk">Bulk / wholesale purchase</option>
-                                    <option value="support">Customer support</option>
-                                    <option value="partnership">Partnership</option>
-                                    <option value="other">Other</option>
+                                    <option value="" {% if not contact_values.subject %}selected{% endif %} disabled>Select a subject...</option>
+                                    <option value="order" {% if contact_values.subject == "order" %}selected{% endif %}>Order inquiry</option>
+                                    <option value="bulk" {% if contact_values.subject == "bulk" %}selected{% endif %}>Bulk / wholesale purchase</option>
+                                    <option value="support" {% if contact_values.subject == "support" %}selected{% endif %}>Customer support</option>
+                                    <option value="partnership" {% if contact_values.subject == "partnership" %}selected{% endif %}>Partnership</option>
+                                    <option value="other" {% if contact_values.subject == "other" %}selected{% endif %}>Other</option>
                                 </select>
                             </div>
                             <div class="col-12">
                                 <label for="contactMessage" class="form-label-custom">Message</label>
                                 <textarea id="contactMessage" name="message" class="contact-input contact-textarea"
-                                    rows="5" placeholder="Tell us how we can help you..." required></textarea>
+                                    rows="5" placeholder="Tell us how we can help you..." required>{{ contact_values.message or '' }}</textarea>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="contact-submit-btn">
