@@ -2,14 +2,15 @@ import os
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
+
+load_dotenv()
+
 from fastapi import FastAPI
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.staticfiles import StaticFiles
 
 from database import init_db
 from routers import cart, checkout, contact, pages, payment, shop
-
-load_dotenv()
 
 SESSION_SECRET_KEY = os.getenv("SESSION_SECRET_KEY")
 if not SESSION_SECRET_KEY:
