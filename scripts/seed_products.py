@@ -19,15 +19,18 @@ DEFAULT_STOCK_QTY = 25
 
 PALM_OIL_SPECS = {
     "Extraction": "Cold-pressed",
-    "Colour": "Deep red (high beta-carotene)",
+    # "Colour": "Deep red (high beta-carotene)",
     "Shelf Life": "18 months (sealed)",
     "Certification": "NAFDAC Approved",
 }
 
 PALM_OIL_NUTRITION = [
-    {"label": "Beta-Carotene", "value": "~500 ppm", "percent": 85},
-    {"label": "Vitamin E", "value": "~900 ppm", "percent": 60},
-    {"label": "Oleic acid (Omega-9)", "value": "~40%", "percent": 40},
+    {"label": "Energy", "value": "900kcal", "percent": 85},
+    {"label": "Total Fat", "value": "100g", "percent": 60},
+    {"label": "Saturated Fats", "value": "50g", "percent": 40},
+    {"label": "Monounsaturated Fats", "value": "37g", "percent": 40},
+    {"label": "Polyunsaturated Fats", "value": "9g", "percent": 40},
+    {"label": "Vitamin E", "value": "15-25mg", "percent": 40},
 ]
 
 
