@@ -35,11 +35,6 @@ PAYMENT_METHODS = {
         "meta": "GTBank, Zenith, Access...",
         "icon": "bi-bank",
     },
-    "cod": {
-        "label": "Cash on Delivery",
-        "meta": "Pay when order arrives",
-        "icon": "bi-cash-coin",
-    },
 }
 
 
