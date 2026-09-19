@@ -63,12 +63,12 @@
                                 <button class="qty-btn qty-plus" type="submit" name="qty" value="{{ line.qty + 1 }}"
                                     aria-label="Increase quantity">+</button>
                             </form>
-                            <div class="cart-item-price">
+                            <!-- <div class="cart-item-price">
                                 <span class="price-main">{{ line.line_total_display }}</span>
                                 {% if line.qty > 1 %}
                                 <span class="price-each">{{ line.unit_price_display }} each</span>
                                 {% endif %}
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                                 <p class="summary-line-name">{{ line.product_name }}</p>
                                 <p class="summary-line-meta">{{ line.size_label }} &middot; qty {{ line.qty }}</p>
                             </div>
-                            <span class="summary-line-price">{{ line.line_total_display }}</span>
+                            <!-- <span class="summary-line-price">{{ line.line_total_display }}</span> -->
                         </div>
                         {% endfor %}
                     </div>
