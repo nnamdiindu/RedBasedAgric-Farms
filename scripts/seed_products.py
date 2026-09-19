@@ -66,6 +66,15 @@ PRODUCTS = [
         "is_featured": True,
         "is_bestseller": True,
     },
+    # {
+    #     "slug": "redbased-palm-oil-2.5ml x 12",
+    #     "name": "Redbased Palm Oil - 2.5ml x 12",
+    #     "size_label": "2.5ml",
+    #     "price": 6000,
+    #     "images": _images("single-500ml.jpg", "single-500ml-alt.jpg", "single-500ml-alt2.jpg"),
+    #     "is_featured": True,
+    #     "is_bestseller": True,
+    # },
     {
         "slug": "redbased-palm-oil-2-5l",
         "name": "Redbased Palm Oil - 2.5L",
