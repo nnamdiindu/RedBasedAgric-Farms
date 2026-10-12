@@ -40,9 +40,9 @@ def _images(*filenames):
 
 PRODUCTS = [
     {
-        "slug": "redbased-palm-oil-2-5ml",
-        "name": "Redbased Palm Oil - 2.5ml",
-        "size_label": "2.5ml",
+        "slug": "redbased-palm-oil-200ml",
+        "name": "Redbased Palm Oil - 200ml",
+        "size_label": "200ml",
         "price": 500,
         "images": _images("single-2-5ml.jpg", "single-2-5ml-alt.jpg"),
         "is_featured": True,
