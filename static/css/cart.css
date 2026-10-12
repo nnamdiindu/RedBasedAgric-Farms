@@ -335,7 +335,10 @@
   cursor: pointer;
   text-decoration: none;
 }
-.btn-checkout:hover { background: var(--color-primary-800, #143528); }
+.btn-checkout:hover {
+  background: var(--color-primary-800, #143528);
+  color: #FFFFFF;
+}
 
 .btn-continue {
   display: block;
@@ -351,7 +354,10 @@
   margin-top: 10px;
   text-decoration: none;
 }
-.btn-continue:hover { background: var(--color-primary-100, #F0F3F1); }
+.btn-continue:hover {
+  background: var(--color-primary-100, #F0F3F1);
+  color: var(--color-text, #222222);
+}
 
 .cart-trust-row {
   display: flex;
