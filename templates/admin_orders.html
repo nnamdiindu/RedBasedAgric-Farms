@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', path='css/admin.css')}}">
+{% endblock %}
+
+{% macro order_details(order) %}
+<div class="admin-order-head">
+  <span class="admin-order-ref">{{ order.reference }}</span>
+  <span class="admin-order-date">{{ order.created_at }}</span>
+</div>
+<div class="admin-order-grid">
+  <div>
+    <p class="admin-field-label">Customer</p>
+    <p class="admin-field-value">{{ order.customer_name }}</p>
+    <p class="admin-field-meta">
+      <a href="tel:{{ order.customer_phone }}">{{ order.customer_phone }}</a><br>
+      <a href="mailto:{{ order.customer_email }}">{{ order.customer_email }}</a>
+    </p>
+  </div>
+  <div>
+    <p class="admin-field-label">Deliver To</p>
+    <p class="admin-field-value">{{ order.city_state }}</p>
+    <p class="admin-field-meta">{{ order.address }}<br>{{ order.delivery_method_label }}</p>
+  </div>
+  <div>
+    <p class="admin-field-label">Items</p>
+    <p class="admin-field-meta">{% for item in order.item_lines %}{{ item }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+    <p class="admin-field-meta">Goods: <strong>{{ order.subtotal_display }}</strong></p>
+  </div>
+</div>
+{% if not order.is_goods_paid %}
+<p class="admin-warning">
+  <i class="bi bi-exclamation-triangle"></i>
+  Goods payment not confirmed yet ({{ order.payment_method|replace('_', ' ') }}, status: {{ order.status|replace('_', ' ') }}).
+</p>
+{% endif %}
+{% endmacro %}
+
+{% block content %}
+<section class="admin-section">
+  <div class="admin-inner">
+
+    <div class="admin-header">
+      <div>
+        <h1 class="admin-title">Delivery Fees</h1>
+        <p class="admin-subtitle">Set the delivery fee for local orders. The customer is emailed a Paystack link to pay it.</p>
+      </div>
+      <form method="post" action="/admin/logout">
+        <button type="submit" class="admin-btn-secondary">
+          <i class="bi bi-box-arrow-right"></i> Sign Out
+        </button>
+      </form>
+    </div>
+
+    {% if flash %}
+    <div class="admin-flash is-{{ flash.kind }}" role="{{ 'alert' if flash.kind == 'error' else 'status' }}">
+      {{ flash.message }}
+    </div>
+    {% endif %}
+
+    <!-- Needs a delivery fee -->
+    <h2 class="admin-section-title">
+      Needs Delivery Fee <span class="admin-count">{{ needs_fee|length }}</span>
+    </h2>
+    {% for order in needs_fee %}
+    <article class="admin-order-card">
+      {{ order_details(order) }}
+      <form method="post" action="/admin/orders/{{ order.reference }}/delivery-fee" class="admin-fee-form">
+        <label for="fee-{{ order.reference }}" class="admin-label">Delivery fee (₦)</label>
+        <div class="admin-fee-row">
+          <input type="text" inputmode="decimal" id="fee-{{ order.reference }}" name="fee"
+            class="admin-input" placeholder="e.g. 2500" required>
+          <button type="submit" class="admin-btn-primary">
+            <i class="bi bi-send"></i> Send Payment Link
+          </button>
+        </div>
+      </form>
+    </article>
+    {% else %}
+    <p class="admin-empty">No orders waiting for a delivery fee.</p>
+    {% endfor %}
+
+    <!-- Quoted, waiting for customer to pay -->
+    <h2 class="admin-section-title">
+      Waiting for Customer to Pay <span class="admin-count">{{ awaiting_payment|length }}</span>
+    </h2>
+    {% for order in awaiting_payment %}
+    <article class="admin-order-card">
+      {{ order_details(order) }}
+      <p class="admin-quoted">Quoted fee: <strong>{{ order.delivery_fee_display }}</strong> &middot; Order total {{ order.total_display }}</p>
+      <form method="post" action="/admin/orders/{{ order.reference }}/delivery-fee" class="admin-fee-form">
+        <label for="fee-{{ order.reference }}" class="admin-label">Correct the fee or resend the email</label>
+        <div class="admin-fee-row">
+          <input type="text" inputmode="decimal" id="fee-{{ order.reference }}" name="fee"
+            class="admin-input" value="{{ order.delivery_fee_input }}" required>
+          <button type="submit" class="admin-btn-secondary">
+            <i class="bi bi-arrow-repeat"></i> Update &amp; Resend
+          </button>
+        </div>
+      </form>
+    </article>
+    {% else %}
+    <p class="admin-empty">No quoted fees waiting for payment.</p>
+    {% endfor %}
+
+    <!-- Recently paid -->
+    <h2 class="admin-section-title">Recently Paid</h2>
+    {% if recent_paid %}
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr><th>Order</th><th>Customer</th><th>Deliver To</th><th>Delivery Fee</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+          {% for order in recent_paid %}
+          <tr>
+            <td class="admin-order-ref">{{ order.reference }}</td>
+            <td>{{ order.customer_name }}<br><a href="tel:{{ order.customer_phone }}">{{ order.customer_phone }}</a></td>
+            <td>{{ order.address }}, {{ order.city_state }}</td>
+            <td>{{ order.delivery_fee_display }}</td>
+            <td>{{ order.total_display }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="admin-empty">No delivery fees paid yet.</p>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

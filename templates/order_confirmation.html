@@ -11,11 +11,25 @@
     </div>
 
     <p class="confirmation-eyebrow">Payment Confirmed</p>
+    {% if delivery_fee_status == 'pending' %}
+    <h1 class="confirmation-heading">We've received your order!</h1>
+
+    <p class="confirmation-subtext">
+      Thank you <strong>{{ customer_first_name|default('Billy') }}</strong>. Your delivery fee is pending &mdash; we'll email you the fee for your location with a link to pay it, then dispatch your order
+    </p>
+    {% elif delivery_fee_status == 'quoted' %}
+    <h1 class="confirmation-heading">Delivery fee awaiting payment</h1>
+
+    <p class="confirmation-subtext">
+      Thank you <strong>{{ customer_first_name|default('Billy') }}</strong>. Use the link in your email to pay the delivery fee and we'll dispatch your order
+    </p>
+    {% else %}
     <h1 class="confirmation-heading">Your order is on its way!</h1>
 
     <p class="confirmation-subtext">
       Thank you <strong>{{ customer_first_name|default('Billy') }}</strong>. We're packing your fresh produce right now
     </p>
+    {% endif %}
 
     <div class="confirmation-card">
       <div class="confirmation-card-header">
@@ -32,8 +46,14 @@
           <span class="confirmation-card-row-label">Estimated Arrival</span>
           <span class="confirmation-card-row-value">{{ eta_display|default('2-4 business days') }}</span>
         </div>
+        {% if delivery_fee_status %}
         <div class="confirmation-card-row">
-          <span class="confirmation-card-row-label">Order Total</span>
+          <span class="confirmation-card-row-label">Delivery Fee</span>
+          <span class="confirmation-card-row-value">{{ delivery_fee_display }}{{ ' (paid)' if delivery_fee_status == 'paid' }}</span>
+        </div>
+        {% endif %}
+        <div class="confirmation-card-row">
+          <span class="confirmation-card-row-label">{{ 'Paid So Far' if delivery_fee_status == 'pending' else 'Order Total' }}</span>
           <span class="confirmation-card-row-value">{{ order_total_display|default('₦13,500') }}</span>
         </div>
       </div>

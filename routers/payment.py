@@ -13,10 +13,26 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 from models.order import Order, OrderItem
-from routers.checkout import DELIVERY_METHODS
+from routers.checkout import (
+    DELIVERY_METHODS,
+    LOCAL_FEE_DISPLAY,
+    delivery_fee_at_checkout,
+    delivery_fee_display,
+    delivery_fee_is_quoted,
+)
 from utils.cart import build_display_lines, clear_cart, get_cart_lines, get_totals
+from utils.delivery_fee import (
+    DELIVERY_FEE_REF_MARKER,
+    delivery_fee_transaction_reference,
+    order_reference_from_fee_reference,
+)
 from utils.formatting import format_naira
-from utils.mailer import send_order_confirmation_email
+from utils.geo import is_local_request
+from utils.mailer import (
+    send_delivery_fee_paid_email,
+    send_delivery_fee_request_to_admin,
+    send_order_confirmation_email,
+)
 from utils.paystack import initialize_transaction, verify_transaction
 from utils.templates import templates
 
@@ -64,22 +80,22 @@ def _require_checkout_state(request: Request, db: Session):
     return lines, shipping, delivery["method"]
 
 
-def _payment_context(lines, shipping, delivery_method, payment_error=None) -> dict:
-    delivery_fee = DELIVERY_METHODS[delivery_method]["fee"]
+def _payment_context(lines, shipping, delivery_method, is_local, payment_error=None) -> dict:
+    delivery_fee = delivery_fee_at_checkout(delivery_method, is_local)
     totals = get_totals(lines, delivery_fee)
     return {
         "payment_methods": PAYMENT_METHODS,
         "lines": build_display_lines(lines),
         "subtotal_display": format_naira(totals["subtotal"]),
-        "delivery_fee_display": format_naira(delivery_fee) if delivery_fee > 0 else "Free",
+        "delivery_fee_display": delivery_fee_display(delivery_method, is_local),
         "total_display": format_naira(totals["total"]),
         "shipping": shipping,
         "payment_error": payment_error,
     }
 
 
-def _create_pending_order(db: Session, lines, shipping, delivery_method, payment_method) -> Order:
-    delivery_fee = DELIVERY_METHODS[delivery_method]["fee"]
+def _create_pending_order(db: Session, lines, shipping, delivery_method, payment_method, is_local) -> Order:
+    delivery_fee = delivery_fee_at_checkout(delivery_method, is_local)
     totals = get_totals(lines, delivery_fee)
 
     order = Order(
@@ -95,6 +111,7 @@ def _create_pending_order(db: Session, lines, shipping, delivery_method, payment
         shipping_state=shipping["state"],
         delivery_method=delivery_method,
         delivery_fee=delivery_fee,
+        delivery_fee_status="pending" if delivery_fee_is_quoted(delivery_method, is_local) else None,
         subtotal=totals["subtotal"],
         total=totals["total"],
         currency="NGN",
@@ -123,6 +140,60 @@ def _send_confirmation_email(order: Order) -> None:
         send_order_confirmation_email(order)
     except Exception:
         logger.exception("Failed to send order confirmation email for order %s", order.reference)
+    if order.delivery_fee_status == "pending":
+        try:
+            send_delivery_fee_request_to_admin(order)
+        except Exception:
+            logger.exception("Failed to send delivery fee request to admin for order %s", order.reference)
+
+
+def _mark_order_paid(db: Session, order: Order) -> None:
+    if order.status == "paid":
+        return
+    order.status = "paid"
+    order.paid_at = datetime.now(timezone.utc)
+    db.commit()
+    _send_confirmation_email(order)
+
+
+def _mark_delivery_fee_paid(db: Session, fee_reference: str, amount_kobo: int | None) -> Order | None:
+    """Records a successful delivery-fee charge. Returns the order, or None if
+    the reference doesn't match one."""
+    order_reference = order_reference_from_fee_reference(fee_reference)
+    order = db.query(Order).filter(Order.reference == order_reference).one_or_none()
+    if order is None or order.delivery_fee_status == "paid":
+        return order
+    expected_kobo = int(order.delivery_fee * 100)
+    if amount_kobo is None or amount_kobo < expected_kobo:
+        logger.error(
+            "Delivery fee charge %s for order %s was %s kobo, expected %s",
+            fee_reference, order.reference, amount_kobo, expected_kobo,
+        )
+        return order
+
+    order.delivery_fee_status = "paid"
+    order.delivery_fee_paid_at = datetime.now(timezone.utc)
+    db.commit()
+    try:
+        send_delivery_fee_paid_email(order)
+    except Exception:
+        logger.exception("Failed to send delivery fee receipt for order %s", order.reference)
+    return order
+
+
+def _public_base_url(request: Request) -> str:
+    return os.getenv("PUBLIC_BASE_URL", str(request.base_url).rstrip("/"))
+
+
+def _verify_success(reference: str) -> dict | None:
+    """Paystack transaction data if the charge succeeded, else None."""
+    try:
+        result = verify_transaction(reference)
+    except httpx.HTTPError:
+        logger.exception("Failed to verify Paystack transaction %s", reference)
+        return None
+    data = result.get("data", {})
+    return data if data.get("status") == "success" else None
 
 
 @router.get("/payment")
@@ -135,7 +206,7 @@ async def payment(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse(
         request=request,
         name="payment.html",
-        context=_payment_context(lines, shipping, delivery_method),
+        context=_payment_context(lines, shipping, delivery_method, is_local_request(request)),
     )
 
 
@@ -151,7 +222,8 @@ async def submit_payment(request: Request, db: Session = Depends(get_db)):
     if payment_method not in PAYMENT_METHODS:
         payment_method = "paystack"
 
-    order = _create_pending_order(db, lines, shipping, delivery_method, payment_method)
+    is_local = is_local_request(request)
+    order = _create_pending_order(db, lines, shipping, delivery_method, payment_method, is_local)
 
     if payment_method in ("bank_transfer", "cod"):
         order.status = "pending_manual"
@@ -160,8 +232,7 @@ async def submit_payment(request: Request, db: Session = Depends(get_db)):
         _send_confirmation_email(order)
         return RedirectResponse(url=f"/order_confirmation?reference={order.reference}", status_code=303)
 
-    public_base_url = os.getenv("PUBLIC_BASE_URL", str(request.base_url).rstrip("/"))
-    callback_url = f"{public_base_url}/payment/callback"
+    callback_url = f"{_public_base_url(request)}/payment/callback"
     amount_kobo = int(order.total * 100)
 
     try:
@@ -185,6 +256,7 @@ async def submit_payment(request: Request, db: Session = Depends(get_db)):
                 lines,
                 shipping,
                 delivery_method,
+                is_local,
                 payment_error="We couldn't reach Paystack right now. Please try again.",
             ),
         )
@@ -195,22 +267,23 @@ async def submit_payment(request: Request, db: Session = Depends(get_db)):
 
 @router.get("/payment/callback")
 async def payment_callback(request: Request, reference: str, db: Session = Depends(get_db)):
+    if DELIVERY_FEE_REF_MARKER in reference:
+        order_reference = order_reference_from_fee_reference(reference)
+        order = db.query(Order).filter(Order.reference == order_reference).one_or_none()
+        if order is None:
+            raise HTTPException(status_code=404, detail="Order not found")
+        if order.delivery_fee_status != "paid":
+            data = _verify_success(reference)
+            if data:
+                _mark_delivery_fee_paid(db, reference, data.get("amount"))
+        return RedirectResponse(url=f"/order_confirmation?reference={order.reference}", status_code=303)
+
     order = db.query(Order).filter(Order.reference == reference).one_or_none()
     if order is None:
         raise HTTPException(status_code=404, detail="Order not found")
 
-    if order.status != "paid":
-        try:
-            result = verify_transaction(reference)
-        except httpx.HTTPError:
-            logger.exception("Failed to verify Paystack transaction %s", reference)
-            result = None
-
-        if result and result.get("data", {}).get("status") == "success":
-            order.status = "paid"
-            order.paid_at = datetime.now(timezone.utc)
-            db.commit()
-            _send_confirmation_email(order)
+    if order.status != "paid" and _verify_success(reference):
+        _mark_order_paid(db, order)
 
     return RedirectResponse(url=f"/order_confirmation?reference={order.reference}", status_code=303)
 
@@ -231,13 +304,14 @@ async def paystack_webhook(request: Request, db: Session = Depends(get_db)):
     payload = json.loads(body)
 
     if payload.get("event") == "charge.success":
-        reference = payload.get("data", {}).get("reference")
-        order = db.query(Order).filter(Order.reference == reference).one_or_none()
-        if order is not None and order.status != "paid":
-            order.status = "paid"
-            order.paid_at = datetime.now(timezone.utc)
-            db.commit()
-            _send_confirmation_email(order)
+        data = payload.get("data", {})
+        reference = data.get("reference") or ""
+        if DELIVERY_FEE_REF_MARKER in reference:
+            _mark_delivery_fee_paid(db, reference, data.get("amount"))
+        else:
+            order = db.query(Order).filter(Order.reference == reference).one_or_none()
+            if order is not None:
+                _mark_order_paid(db, order)
 
     return {"status": "ok"}
 
@@ -265,5 +339,40 @@ async def order_confirmation(request: Request, reference: str | None = None, db:
             "delivery_line2": f"{order.shipping_city}, {order.shipping_state}",
             "eta_display": DELIVERY_METHODS.get(order.delivery_method, {}).get("meta"),
             "order_total_display": format_naira(order.total),
+            "delivery_fee_status": order.delivery_fee_status,
+            "delivery_fee_display": (
+                LOCAL_FEE_DISPLAY if order.delivery_fee_status == "pending" else format_naira(order.delivery_fee)
+            ),
         },
     )
+
+
+@router.get("/order/{reference}/delivery-fee")
+async def pay_delivery_fee(request: Request, reference: str, db: Session = Depends(get_db)):
+    """Link emailed to the customer once the admin has quoted their delivery
+    fee. Starts a fresh Paystack charge for just the fee."""
+    order = db.query(Order).filter(Order.reference == reference).one_or_none()
+    if order is None:
+        raise HTTPException(status_code=404, detail="Order not found")
+    if order.delivery_fee_status != "quoted":
+        # Not quoted yet, already paid, or not a quoted-fee order.
+        return RedirectResponse(url=f"/order_confirmation?reference={order.reference}", status_code=303)
+
+    try:
+        result = initialize_transaction(
+            email=order.customer_email,
+            amount_kobo=int(order.delivery_fee * 100),
+            reference=delivery_fee_transaction_reference(order.reference),
+            callback_url=f"{_public_base_url(request)}/payment/callback",
+        )
+        authorization_url = result.get("data", {}).get("authorization_url")
+        if not authorization_url:
+            raise ValueError("Paystack response did not include an authorization_url")
+    except (httpx.HTTPError, ValueError):
+        logger.exception("Failed to initialize delivery fee transaction for order %s", order.reference)
+        raise HTTPException(
+            status_code=502,
+            detail="We couldn't reach Paystack right now. Please try the link again shortly.",
+        )
+
+    return RedirectResponse(url=authorization_url, status_code=303)

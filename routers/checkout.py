@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from utils.cart import build_display_lines, get_cart_lines, get_totals
 from utils.formatting import format_naira
+from utils.geo import is_local_request
 from utils.nigeria_states import NIGERIA_STATES
 from utils.templates import templates
 
@@ -34,6 +35,7 @@ DELIVERY_METHODS = {
         "badge_class": "badge-accent",
         "meta": "2–4 business days. All 36 states",
         "icon": "bi-truck",
+        "quoted_for_local": True,
     },
     "express": {
         "label": "Express Delivery",
@@ -43,6 +45,7 @@ DELIVERY_METHODS = {
         "badge_class": "badge-neutral",
         "meta": "Next day. Lagos, Abuja, PH",
         "icon": "bi-bicycle",
+        "quoted_for_local": True,
     },
     "pickup": {
         "label": "Farm Pickup",
@@ -56,15 +59,54 @@ DELIVERY_METHODS = {
 }
 
 
-def _cart_summary(request: Request, db: Session, delivery_fee: Decimal = Decimal("0")) -> dict:
+LOCAL_FEE_DISPLAY = "To be confirmed"
+
+
+def delivery_fee_is_quoted(method: str, is_local: bool) -> bool:
+    """Local customers on a delivery (not pickup) method pay goods first; the
+    delivery fee is quoted afterwards based on their location."""
+    return is_local and DELIVERY_METHODS[method].get("quoted_for_local", False)
+
+
+def delivery_fee_at_checkout(method: str, is_local: bool) -> Decimal:
+    if delivery_fee_is_quoted(method, is_local):
+        return Decimal("0")
+    return DELIVERY_METHODS[method]["fee"]
+
+
+def delivery_fee_display(method: str, is_local: bool) -> str:
+    if delivery_fee_is_quoted(method, is_local):
+        return LOCAL_FEE_DISPLAY
+    fee = DELIVERY_METHODS[method]["fee"]
+    return format_naira(fee) if fee > 0 else "Free"
+
+
+def _delivery_methods_for(is_local: bool) -> dict:
+    if not is_local:
+        return DELIVERY_METHODS
+    methods = {}
+    for key, method in DELIVERY_METHODS.items():
+        if method.get("quoted_for_local"):
+            method = {
+                **method,
+                "fee": None,
+                "fee_display": LOCAL_FEE_DISPLAY,
+                "badge": "Fee by location",
+                "badge_class": "badge-neutral",
+            }
+        methods[key] = method
+    return methods
+
+
+def _cart_summary(request: Request, db: Session, delivery_fee: Decimal = Decimal("0"), fee_display: str | None = None) -> dict:
     lines = get_cart_lines(request, db)
     totals = get_totals(lines, delivery_fee)
     return {
         "lines": build_display_lines(lines),
         "subtotal_display": format_naira(totals["subtotal"]),
         "total_display": format_naira(totals["total"]),
-        "has_delivery_fee": delivery_fee > 0,
-        "delivery_fee_display": format_naira(delivery_fee) if delivery_fee > 0 else "Free",
+        "has_delivery_fee": delivery_fee > 0 or fee_display is not None,
+        "delivery_fee_display": fee_display or (format_naira(delivery_fee) if delivery_fee > 0 else "Free"),
     }
 
 
@@ -146,12 +188,19 @@ async def delivery(request: Request, db: Session = Depends(get_db)):
     if selected_method not in DELIVERY_METHODS:
         selected_method = "standard"
 
+    is_local = is_local_request(request)
+    quoted = delivery_fee_is_quoted(selected_method, is_local)
     return templates.TemplateResponse(
         request=request,
         name="delivery.html",
         context={
-            **_cart_summary(request, db, DELIVERY_METHODS[selected_method]["fee"]),
-            "delivery_methods": DELIVERY_METHODS,
+            **_cart_summary(
+                request,
+                db,
+                delivery_fee_at_checkout(selected_method, is_local),
+                LOCAL_FEE_DISPLAY if quoted else None,
+            ),
+            "delivery_methods": _delivery_methods_for(is_local),
             "selected_method": selected_method,
             "shipping": shipping,
         },

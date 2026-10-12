@@ -25,6 +25,11 @@ class Order(Base):
 
     delivery_method = Column(String(30), nullable=True)
     delivery_fee = Column(Numeric(10, 2), default=0)
+    # Local (Nigeria) delivery orders are paid in two steps: goods first, then
+    # a delivery fee the admin quotes by location. None = fee not used;
+    # otherwise "pending" (awaiting quote) -> "quoted" (link emailed) -> "paid".
+    delivery_fee_status = Column(String(20), nullable=True)
+    delivery_fee_paid_at = Column(DateTime, nullable=True)
 
     subtotal = Column(Numeric(10, 2), nullable=False)
     total = Column(Numeric(10, 2), nullable=False)
