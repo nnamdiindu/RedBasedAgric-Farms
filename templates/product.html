@@ -123,8 +123,8 @@
     <!-- Tabs -->
     <div class="pdp-tabs">
         <button type="button" class="pdp-tab active">Description</button>
-        <button type="button" class="pdp-tab">Shipping</button>
-        <button type="button" class="pdp-tab" id="reviews">Reviews ({{ product.rating_count }})</button>
+        <!-- <button type="button" class="pdp-tab">Shipping</button> -->
+        <!-- <button type="button" class="pdp-tab" id="reviews">Reviews ({{ product.rating_count }})</button> -->
     </div>
 
     <div class="pdp-content-grid">
@@ -135,6 +135,15 @@
             <p>Sourced exclusively from our plantation in Enugu State, where palms are cultivated without synthetic
                 pesticides or herbicides. We harvest only ripe, hand-selected fresh produce at peak quality.
             </p>
+            <p>From the plantation, the freshly harvested fruits are transported to our processing mill, where each stage
+                 is carried out with care. The fruits are steamed to preserve their quality, separated from their bunches, 
+                 softened and pressed to extract the rich, natural palm oil. The extracted oil then undergoes clarification 
+                 and purification to remove water, fibres and other impurities, leaving behind the rich red oil we take pride 
+                 in producing.
+            </p>
+            <p>But our commitment doesn't end with extraction. Every batch goes through quality checks for its colour, taste 
+                and aroma before being carefully packaged, labelled and sealed. It is then stored under appropriate conditions, 
+                ready to make its way from our farm to your home.</p>
 
             {% if product.specs %}
             <div class="pdp-specs">

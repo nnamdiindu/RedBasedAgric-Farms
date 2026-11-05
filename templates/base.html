@@ -54,7 +54,7 @@
       <div class="collapse navbar-collapse flex-grow-0" id="siteNav">
         <ul class="site-nav nav flex-column flex-lg-row mb-3 mb-lg-0">
           <li><a href="{{url_for('index')}}" class="nav-link px-2 link-secondary">Home</a></li>
-          <li><a href="{{url_for('about_us')}}" class="nav-link px-2 link-dark">About</a></li>
+          <li><a href="{{url_for('about_us')}}" class="nav-link px-2 link-dark">About Us</a></li>
           <li><a href="{{url_for('contact_us')}}" class="nav-link px-2 link-dark">Contact Us</a></li>
           <li><a href="{{url_for('shop')}}" class="nav-link px-2 link-dark">Shop</a></li>
         </ul>
@@ -84,10 +84,10 @@
         <div class="newsletter-title"><i class="bi bi-envelope-fill"></i> Get 5% Off Your first Order</div>
         <p class="newsletter-sub">Farm updates, harvest alerts, exclusive deals- no spam</p>
       </div>
-      <form class="newsletter-form" onsubmit="return false;">
+      <!-- <form class="newsletter-form" onsubmit="return false;">
         <input type="email" class="newsletter-input" placeholder="your@email.com" aria-label="Email address" required>
         <button type="submit" class="newsletter-btn">Subscribe</button>
-      </form>
+      </form> -->
     </div>
  
     <!-- Link columns -->
@@ -101,16 +101,16 @@
         <div class="footer-social">
           <a href="https://www.instagram.com/redbasedagricfarmltd/" class="footer-social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
           <a href="https://www.tiktok.com/@user5577888272987?is_from_webapp=1&sender_device=pc" class="footer-social-icon" aria-label="X (Twitter)"><i class="bi bi-tiktok"></i></a>
-          <a href="https://web.facebook.com/share/r/1ShLRmDn6V/" class="footer-social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.facebook.com/share/1CiNsBC6V6/" class="footer-social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
         </div>
       </div>
  
       <div class="footer-col">
         <div class="footer-col-title">PRODUCTS</div>
         <ul class="footer-links">
-          <li><a href="#">Palm Oil</a></li>
-          <li><a href="#">Cooking Oils</a></li>
-          <li><a href="#">Fresh Produce</a></li>
+          <li><a href="{{ url_for('shop') }}">Palm Oil</a></li>
+          <!-- <li><a href="#">Cooking Oils</a></li>
+          <li><a href="#">Fresh Produce</a></li> -->
           <!-- <li><a href="#">Flour &amp; Grains</a></li>
           <li><a href="#">Farm Bundles</a></li> -->
         </ul>
@@ -119,9 +119,9 @@
       <div class="footer-col">
         <div class="footer-col-title">COMPANY</div>
         <ul class="footer-links">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Our Farm</a></li>
-          <li><a href="#">Sustainability</a></li>
+          <li><a href="/about_us">About Us</a></li>
+          <li><a href="#hero-background-slider">Our Farm</a></li>
+          <!-- <li><a href="#">Sustainability</a></li> -->
           <!-- <li><a href="#">Blog</a></li>
           <li><a href="#">Careers</a></li> -->
         </ul>
@@ -130,11 +130,11 @@
       <div class="footer-col">
         <div class="footer-col-title">SUPPORT</div>
         <ul class="footer-links">
-          <li><a href="#">FAQs</a></li>
+          <!-- <li><a href="#">FAQs</a></li>
           <li><a href="#">Shipping Info</a></li>
           <li><a href="#">Returns</a></li>
-          <li><a href="#">Track Order</a></li>
-          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Track Order</a></li> -->
+          <li><a href="/contact">Contact Us</a></li>
         </ul>
       </div>
  
@@ -165,9 +165,9 @@
 
       </div>
       <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
+        <!-- <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
-        <a href="#">Cookie Policy</a>
+        <a href="#">Cookie Policy</a> -->
       </div>
     </div>
  

@@ -4,6 +4,17 @@
 
   <!-- Hero Section -->
   <section class="hero">
+
+    <!-- Hero Background Slider -->
+    <div class="hero-background-slider" id="hero-background-slider">
+      <div class="hero-bg-slide active" style="background-image: url('{{ url_for('static', path='images/palm_trree.jpeg') }}');"></div>
+      <div class="hero-bg-slide" style="background-image: url('{{ url_for('static', path='images/farmer-with-palm.png') }}');"></div>
+      <div class="hero-bg-slide" style="background-image: url('{{ url_for('static', path='images/palm-kernel-3.png') }}');"></div>
+      <div class="hero-bg-slide" style="background-image: url('{{ url_for('static', path='images/palm_fruit_2.jpeg') }}');"></div>
+      <div class="hero-bg-slide" style="background-image: url('{{ url_for('static', path='images/palm_oil.jpeg') }}');"></div>
+      <div class="hero-bg-overlay"></div>
+    </div>
+
     <div class="hero-inner">
       <div class="row align-items-center g-5">
 
@@ -21,17 +32,17 @@
           </h1>
 
           <p class="hero-sub">
-            Pure, unrefined, cold-pressed. RedBased Agric Farm brings you premium
-            palm oil and farm produce — harvested fresh, shipped fast, with no middlemen.
+            Pure, unrefined, cold-pressed. Red Based Agric Farm brings you premium
+            palm oil and farm produce — harvested fresh, shipped fast, with no agent.
           </p>
 
           <div class="d-flex flex-wrap gap-3">
-            <a href="#shop" class="btn btn-shop">
+            <a href="{{ url_for('shop') }}" class="btn btn-shop">
               Shop Now <i class="bi bi-arrow-right"></i>
             </a>
-            <a href="#create-account" class="btn btn-create">
+            <!-- <a href="#create-account" class="btn btn-create">
               Create Account
-            </a>
+            </a> -->
           </div>
 
           <hr class="hero-divider">
@@ -42,8 +53,8 @@
               <div class="stat-label">Happy Customers</div>
             </div>
             <div class="col-4">
-              <div class="stat-value">36</div>
-              <div class="stat-label">States Covered</div>
+              <div class="stat-value">36+</div>
+              <div class="stat-label">Nationwide & Worldwide Reach</div>
             </div>
             <div class="col-4">
               <div class="stat-value">100%</div>
@@ -103,7 +114,7 @@
             <i class="bi bi-tag-fill"></i>
           </div>
           <div class="feature-title">Farm Direct Pricing</div>
-          <p class="feature-text">Zero middlemen. You pay farm-gate prices</p>
+          <p class="feature-text">Zero agent. You pay farm-gate prices</p>
         </div>
       </div>
  
@@ -112,8 +123,8 @@
           <div class="feature-icon feature-icon--delivery">
             <i class="bi bi-truck"></i>
           </div>
-          <div class="feature-title">Nationwide Delivery</div>
-          <p class="feature-text">We ship to all 36 states in Nigeria with reliable tracking</p>
+          <div class="feature-title">Global Delivery</div>
+          <p class="feature-text">We ship to every corner of the world</p>
         </div>
       </div>
  

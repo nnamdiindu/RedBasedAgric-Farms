@@ -143,16 +143,45 @@
   }
 
   .hero {
-      background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-700) 100%);
       color: #fff;
       min-height: 100vh;
       padding: 3.5rem 0;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+  }
+
+  .hero-background-slider {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+  }
+
+  .hero-bg-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+  }
+
+  .hero-bg-slide.active {
+      opacity: 1;
+  }
+
+  .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
   }
 
   .hero-inner {
       max-width: 1320px;
       margin: 0 auto;
       padding: 0 2.5rem;
+      position: relative;
+      z-index: 1;
   }
 
   @media (max-width: 575.98px) {
@@ -252,7 +281,7 @@
   }
 
   .stat-label {
-      color: var(--color-on-primary-faint);
+      color: var(--color-on-primary-muted);
       font-size: 0.85rem;
   }
 
@@ -261,23 +290,23 @@
       position: relative;
   }
 
-  .hero-media-frame {
-      position: relative;
-      border-radius: 1.25rem;
-      overflow: hidden;
-      aspect-ratio: 4 / 3.15;
-      background: var(--color-primary-700);
-      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
-  }
+    .hero-media-frame {
+        position: relative;
+        border-radius: 1.25rem;
+        overflow: hidden;
+        aspect-ratio: 4 / 3.15; 
+        background: var(--color-primary-700);
+        box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+    }
 
-  /* Replace this src with the relative path to your local image,
-     e.g. "./images/palm-oil-banner.jpg" */
-  .hero-media-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-  }
+    /* Replace this src with the relative path to your local image,
+      e.g. "./images/palm-oil-banner.jpg" */
+    .hero-media-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
 
   .rating-badge {
       position: absolute;

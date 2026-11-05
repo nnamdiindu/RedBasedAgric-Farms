@@ -1,3 +1,42 @@
+// Hero background image carousel
+document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".hero-bg-slide");
+    const ourFarmLink = document.querySelector('a[href="#hero-background-slider"]');
+
+    let currentSlide = 0;
+    let slideInterval;
+
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove("active"));
+
+        currentSlide = index;
+        slides[currentSlide].classList.add("active");
+    }
+
+    function startSlider() {
+        if (slides.length > 1) {
+            slideInterval = setInterval(() => {
+                showSlide((currentSlide + 1) % slides.length);
+            }, 5000);
+        }
+    }
+
+    if (slides.length > 0) {
+        showSlide(0);
+        startSlider();
+    }
+
+    if (ourFarmLink) {
+        ourFarmLink.addEventListener("click", function () {
+            if (slides.length > 0) {
+                clearInterval(slideInterval);
+                showSlide(0);
+                startSlider();
+            }
+        });
+    }
+});
+
 
 // Best Sellers carousel: arrow-driven scroll with synced dot pagination.
 (function () {

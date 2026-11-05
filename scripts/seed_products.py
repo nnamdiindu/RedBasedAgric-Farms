@@ -18,19 +18,24 @@ IMG_DIR = "images/productpictures/"
 DEFAULT_STOCK_QTY = 25
 
 PALM_OIL_SPECS = {
-    "Extraction": "Cold-pressed",
+    # "Extraction": "Cold-pressed",
     # "Colour": "Deep red (high beta-carotene)",
-    "Shelf Life": "18 months (sealed)",
-    "Certification": "NAFDAC Approved",
+    "Shelf Life": "24 months (sealed)"
+    # "Certification": "NAFDAC Approved",
 }
 
 PALM_OIL_NUTRITION = [
     {"label": "Energy", "value": "900kcal", "percent": 85},
-    {"label": "Total Fat", "value": "100g", "percent": 60},
-    {"label": "Saturated Fats", "value": "50g", "percent": 40},
-    {"label": "Monounsaturated Fats", "value": "37g", "percent": 40},
-    {"label": "Polyunsaturated Fats", "value": "9g", "percent": 40},
-    {"label": "Vitamin E", "value": "15-25mg", "percent": 40},
+    # {"label": "Total Fat", "value": "100g", "percent": 60},
+    {"label": "Free fatty acid (FFA)", "value": "0.70%", "percent": 0.7},
+    # {"label": "Saturated Fats", "value": "50g", "percent": 40},
+    {"label": "Moisture & Impurities", "value": "0.00%", "percent": 0},
+    # {"label": "Monounsaturated Fats", "value": "37g", "percent": 40},
+    # {"label": "Polyunsaturated Fats", "value": "9g", "percent": 40},
+    # {"label": "Vitamin E", "value": "15-25mg", "percent": 40},
+    {"label": "Carotenoids", "value": "556.6mg/kg", "percent": 40},
+    {"label": "Iodine", "value": "52.5", "percent": 40},
+    {"label": "Ordour/taste", "value": "No rancid odour", "percent": 0},
 ]
 
 
@@ -179,8 +184,8 @@ def seed():
                 "name": entry["name"],
                 "category": "Palm Oil",
                 "description": (
-                    "Cold-pressed red palm oil straight from our farm, packed fresh — "
-                    f"this listing is the {entry['size_label']} pack."
+                    "Red palm oil straight from our farm, "
+                    "packed fresh, handpicked, cooked and processed down"
                 ),
                 "specs": PALM_OIL_SPECS,
                 "nutrition_facts": PALM_OIL_NUTRITION,
