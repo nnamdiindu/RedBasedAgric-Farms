@@ -8,7 +8,11 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-from database import SessionLocal, init_db
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from database import SessionLocal, engine, init_db
 from models.product import Product, ProductVariant
 
 IMG_DIR = "images/productpictures/"
@@ -168,11 +172,17 @@ def seed():
     init_db()
     db = SessionLocal()
     try:
+        # Stale products are deactivated rather than deleted: past order items
+        # still reference them (and their variants) by foreign key.
         valid_slugs = {entry["slug"] for entry in PRODUCTS}
-        stale_products = db.query(Product).filter(~Product.slug.in_(valid_slugs)).all()
+        stale_products = (
+            db.query(Product)
+            .filter(~Product.slug.in_(valid_slugs), Product.is_active.is_(True))
+            .all()
+        )
         removed = len(stale_products)
         for product in stale_products:
-            db.delete(product)
+            product.is_active = False
 
         created, updated = 0, 0
         for entry in PRODUCTS:
@@ -196,6 +206,7 @@ def seed():
                 "rating_count": 0,
                 "is_featured": entry["is_featured"],
                 "is_bestseller": entry["is_bestseller"],
+                "is_active": True,
             }
 
             if product is None:
@@ -207,18 +218,21 @@ def seed():
                     setattr(product, key, value)
                 updated += 1
 
-            product.variants = [
-                ProductVariant(
-                    size_label=entry["size_label"],
-                    price=entry["price"],
-                    stock_qty=DEFAULT_STOCK_QTY,
-                    image=images[0],
-                    image_gallery=images,
-                )
-            ]
+            # Update the existing variant in place (keeping its id and stock) so
+            # order items that reference it stay valid.
+            if product.variants:
+                variant = product.variants[0]
+            else:
+                variant = ProductVariant(stock_qty=DEFAULT_STOCK_QTY)
+                product.variants.append(variant)
+            variant.size_label = entry["size_label"]
+            variant.price = entry["price"]
+            variant.image = images[0]
+            variant.image_gallery = images
 
         db.commit()
-        print(f"Seed complete: {created} created, {updated} updated, {removed} stale products removed.")
+        print(f"Seed complete: {created} created, {updated} updated, {removed} stale products deactivated.")
+        print(f"Database: {engine.url.render_as_string(hide_password=True)}")
     finally:
         db.close()
 
