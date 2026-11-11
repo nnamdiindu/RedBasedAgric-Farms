@@ -246,13 +246,13 @@
 @media (min-width: 768px) {
   .farm-grid {
     grid-template-columns: 1.5fr 1fr 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: 1rem;
-    height: 440px;
+    height: 660px;
   }
   .farm-img--main {
     grid-column: 1;
-    grid-row: 1 / span 2;
+    grid-row: 1 / span 3;
     aspect-ratio: auto;
   }
   .farm-img:not(.farm-img--main) {
